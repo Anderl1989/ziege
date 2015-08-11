@@ -633,28 +633,34 @@ $(function(){
 			
 					var al = new AsyncLoader();
 					
+					var addPublicTilesetToAl = function(i){
+						al.addMethod(REST.getPublicTileset, [i], function(tileset){
+							console.log(tileset, i);
+							
+							if(!TS[i]) TS[i] = {};
+							if(!TS[i].box) TS[i].box = {};
+							if(!TS[i].entity) TS[i].entity = {};
+							if(!TS[i].backgroundImage) TS[i].backgroundImage = {};
+							
+							TS[i].name = GameInfo.tilesets[i];
+							
+							for(var j in tileset.box){
+								TS[i].box[tileset.box[j]._id] = tileset.box[j].box;
+							}
+							for(var j in tileset.entity){
+								TS[i].entity[tileset.entity[j]._id] = tileset.entity[j].entity;
+							}
+							for(var j in tileset.backgroundImage){
+								TS[i].backgroundImage[tileset.backgroundImage[j]._id] = tileset.backgroundImage[j].backgroundImage;
+							}
+						}, handleLoadError);
+						
+					};
+					
 					if(GameInfo.tilesets && GameInfo.tilesets instanceof Object){
+						console.log("GAME TILESETS", GameInfo.tilesets);
 						for(var i in GameInfo.tilesets){
-							al.addMethod(REST.getPublicTileset, [i], function(tileset){
-								console.log(tileset);
-								
-								if(!TS[i]) TS[i] = {};
-								if(!TS[i].box) TS[i].box = {};
-								if(!TS[i].entity) TS[i].entity = {};
-								if(!TS[i].backgroundImage) TS[i].backgroundImage = {};
-								
-								TS[i].name = GameInfo.tilesets[i];
-								
-								for(var j in tileset.box){
-									TS[i].box[tileset.box[j]._id] = tileset.box[j].box;
-								}
-								for(var j in tileset.entity){
-									TS[i].entity[tileset.entity[j]._id] = tileset.entity[j].entity;
-								}
-								for(var j in tileset.backgroundImage){
-									TS[i].backgroundImage[tileset.backgroundImage[j]._id] = tileset.backgroundImage[j].backgroundImage;
-								}
-							}, handleLoadError);
+							addPublicTilesetToAl(i);
 						}
 					}
 					
@@ -1322,9 +1328,8 @@ $(function(){
 				save(function(){
 					var al = new AsyncLoader();
 					
-					if(GameInfo.tilesets && GameInfo.tilesets instanceof Object){
-						for(var i in GameInfo.tilesets){
-							al.addMethod(REST.getPublicTileset, [i], function(tileset){
+					var addPublicTilesetToAl = function(i){
+						al.addMethod(REST.getPublicTileset, [i], function(tileset){
 								console.log(tileset);
 								
 								if(!TS[i]) TS[i] = {};
@@ -1344,6 +1349,12 @@ $(function(){
 									TS[i].backgroundImage[tileset.backgroundImage[j]._id] = tileset.backgroundImage[j].backgroundImage;
 								}
 							}, handleLoadError);
+						
+					};
+					
+					if(GameInfo.tilesets && GameInfo.tilesets instanceof Object){
+						for(var i in GameInfo.tilesets){
+							addPublicTilesetToAl(i);
 						}
 					}
 					showLoading();
