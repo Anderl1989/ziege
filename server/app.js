@@ -9,6 +9,9 @@ var SESSION_SECRET = '1234567890QWERTY';
 
 /* IMPORTS */
 var express = require('express');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var log = require('./log');
 var dbObj = require('./db');
 var db = dbObj.db;
@@ -22,9 +25,9 @@ var ratings = require('./routes/ratings').init(db, mongojs);
 var app = express();
 
 /* MIDDLEWARE */
-app.use(express.bodyParser()); //parses body arguments
-app.use(express.cookieParser()); //required for session management
-app.use(express.session({secret: SESSION_SECRET})); //enables session management
+app.use(bodyParser()); //parses body arguments
+app.use(cookieParser()); //required for session management
+app.use(session({secret: SESSION_SECRET})); //enables session management
 app.use(function(req, res, next){ //adds a simple logger
 	console.log('%s %s', req.method, req.url);
 	next();
