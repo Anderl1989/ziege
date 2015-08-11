@@ -1,0 +1,26 @@
+{
+  "name": "ziege",
+  "id": "ziege",
+  "version": "0.0.1",
+  "description": "ZIEGE Webserver",
+  "author": {
+    "name": "Andreas Kasch",
+    "email": "andreas.kasch@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Anderl1989/ziege.git",
+    "web": "https://github.com/Anderl1989/ziege"
+  },
+  "bugs": {
+    "url": "https://github.com/Anderl1989/ziege/issues"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "crypto": "0.0.3",
+    "express": "^4.13.3",
+    "mongojs": "^1.2.1",
+    "nodemailer": "^1.4.0",
+    "pwd": "0.0.4"
+  }
+}

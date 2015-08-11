@@ -1,0 +1,224 @@
+{#literal}
+<STYLE type="text/css">
+	
+	#header{
+		width: 100%;
+		margin: 0;
+		height: 100px;
+		background-color: #ffffff;
+	}
+		
+	#header_spacer{
+		width: 1000px;
+		margin: 0 auto;
+	}
+	
+	#header_logout{
+		height: 40px;
+		line-height: 40px;
+		padding: 0 20px;
+		float: right;
+	}
+	
+	#header_user{
+		height: 40px;
+		line-height: 40px;
+		float: right;
+	}
+	
+	#header_title{
+		background-image: url("../res/ZIEGE.png");
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+		display: inline-block;
+		height: 100px;
+		width: 220px;
+		float: left;
+	}
+	
+	#header_buttons{
+		height: 50px;
+		line-height: 50px;
+		margin: 25px 0;
+		float: right;
+		box-shadow: 1px 1px 0 0 #3597D3;
+	}
+	
+	.header_button{
+		float:left;
+		height: 50px;
+		line-height: 50px;
+		border: 1px solid #3597D3;
+		color: #3597D3;
+		width: 140px;
+		text-align: center;
+	}
+	
+	.header_button:nth-child(2){
+		border-width: 1px 0 1px 0;
+	}
+	
+	.header_button.active{
+		background-color: #3597D3;
+		color: #ffffff;
+	}
+	
+	#header_user{
+		background-color: #f16022;
+		width: 200px;
+		height: 50px;
+		line-height: 50px;
+		margin: 25px 0 25px 50px;
+		float: right;
+		text-align: center;
+		color: #ffffff;
+		position: relative;
+		
+	}
+	
+	
+	#header_user_loggedOut{
+		
+		background-image: url("../res/icons/user_icon.png");
+		background-repeat: no-repeat;
+		background-position: 10% center;
+	}
+	
+	#header_user_loggedIn{
+		
+		background-image: url("../res/icons/arrow.png");
+		background-repeat: no-repeat;
+		background-position: 90% center;
+	}
+	
+	#header_user_sub div{
+		background-color: #ffffff;
+		color: #3597D3;
+		border-width: 0 1px 1px 1px;
+		border-color: #f16022;
+		border-style: solid;
+	}
+	
+	#header_user_sub{
+		position: absolute;
+		left: 0;
+		top: 50px;
+		width: 200px;
+		z-index: 1000;
+	}
+	
+	
+	@media (max-height: 750px){
+		#header,
+		#header_title{
+			height: 55px;
+		}
+		#header_user,
+		#header_buttons{
+			height: 35px;
+			line-height: 35px;
+			margin: 10px 0 10px 50px;
+		}
+		.header_button{
+			height: 35px;
+			line-height: 35px;
+		}
+		#header_user_sub{
+			top: 35px;
+		}
+	}
+	
+</STYLE>
+<SCRIPT type="text/javascript">
+	$(function(){
+		$("#header_user_sub").hide();
+		$("#header_user_loggedIn").hide();
+		
+		REST.isLoggedIn(function(obj){
+			if(!obj.loggedIn){
+				$("#header_user_loggedIn").hide();
+			} else {
+				$("#header_user_loggedIn").show();
+				$("#header_user_loggedOut").hide();
+			}
+		}, function(){
+			console.error(arguments);
+		});
+		
+		if((window.location + "").lastIndexOf("myGames.html") != -1){
+			$(".header_button").removeClass("active");
+			$("#header_button_editor").addClass("active");
+		} else if((window.location + "").lastIndexOf("edit.html") != -1){
+			$(".header_button").removeClass("active");
+			$("#header_button_editor").addClass("active");
+		} else if((window.location + "").lastIndexOf("instructions.html") != -1){
+			$(".header_button").removeClass("active");
+			$("#header_button_help").addClass("active");
+		}
+	
+		$("#header_title").click(function(){
+			window.location = "index.html";
+		});
+		
+		$("#header_button_editor").click(function(){
+			REST.checkLogin(function(){
+				window.location = "myGames.html";
+			});
+		});
+		
+		$("#header_button_games").click(function(){
+			window.location = "index.html";
+		});
+		
+		$("#header_button_help").click(function(){
+			window.location = "instructions.html";
+		});
+		
+		$("#header_user_loggedOut").click(function(){
+			window.location = "login.html";
+		});
+		
+		$("#header_user_loggedIn").click(function(){
+			$("#header_user_sub").slideToggle();
+		});
+		
+		
+		$("#header_user_settings").click(function(){
+			window.location = "settings.html";
+		});
+			
+		$("#header_user_logout").click(function(){
+			REST.logout(function(){
+				TOOLS.Storage.remove("user");
+				window.location = "index.html";
+			}, function(err){
+				console.error(err);
+				TOOLS.Storage.remove("user");
+				window.location = "index.html";
+			});
+		});
+	});
+</SCRIPT>
+{#/literal}
+<DIV id="header">
+	<div id="header_spacer">
+		<DIV id="header_title" class="click"></DIV>
+		
+		<div id="header_user">
+			<DIV id="header_user_loggedIn" class="click">User: {TOOLS.Storage.get("user")}</DIV>
+			<DIV id="header_user_loggedOut" class="click">Login</DIV>
+			<div id="header_user_sub">
+				<DIV id="header_user_settings" class="click">Einstellungen</DIV>
+				<DIV id="header_user_logout" class="click">Abmelden</DIV>
+			</div>
+		</div>
+		
+		<div id="header_buttons">
+			<DIV id="header_button_editor" class="header_button click">Editor</DIV>
+			<DIV id="header_button_games" class="header_button click active">Spiele</DIV>
+			<DIV id="header_button_help" class="header_button click">Anleitung</DIV>
+		</div>
+		
+	</DIV>
+</DIV>

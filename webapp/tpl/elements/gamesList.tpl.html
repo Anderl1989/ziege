@@ -1,0 +1,38 @@
+{#foreach $T.games.games as game}
+	<DIV class="showroom_entry" gameId="{$T.game._id}">
+		{#if $T.editable}
+		<div class="showroom_entry_tools">
+			<div class="showroom_entry_tools_buttons">
+				{#if !$T.shared}<div class="showroom_entry_tools_button_edit click" tooltip="{t('tooltip.editGame')}"></div>{#/if}
+				<!--<div class="showroom_entry_tools_button_copy click" tooltip="{t('tooltip.copyGame')}"></div>-->
+				{#if !$T.shared}<div class="showroom_entry_tools_button_share click" tooltip="{t('tooltip.shareGame')}"></div>
+				{#else}<div class="showroom_entry_tools_button_unshare click" tooltip="{t('tooltip.unshareGame')}"></div>
+				<div class="showroom_entry_tools_button_shareTileset click" tooltip="{t('tooltip.shareTileset')}"></div>{#/if}
+				<div class="showroom_entry_tools_button_remove click" tooltip="{t('tooltip.removeGame')}"></div>
+			</div>
+		</div>
+		{#/if}
+		<A href="play.html?gameId={$T.game._id}" class="click"><img class="showroom_entry_image" src="{$T.game.img}?v={$T.game.modifiedDate}"></img></A>
+		<div class="showroom_entry_content">
+			<div class="ratingContainer"></div>
+			<p><A href="play.html?gameId={$T.game._id}" class="click">{$T.game.name}</A></p>
+			<p>von {$T.game.author}</p>
+		</div>
+	</DIV>
+{#/for}
+{#if $T.games.total > $T.games.count}
+<div class="pagingContainer">
+	<p>
+		
+		<a href="#" class="first page {#if $T.games.page == 0}disabled{#/if}" page="0">&laquo;</a>
+		<a href="#" class="prev {#if $T.games.page == 0}disabled{#/if}">&lsaquo;</a>
+		{#for i = 0 to Math.ceil($T.games.total/$T.games.count)-1}
+			{#if $T.i >= ($T.games.page-0 - 5) && $T.i <= ($T.games.page-0 + 5)}
+			<a href="#" class="page {#if $T.games.page == $T.i}disabled{#/if}" page="{$T.i}">{$T.i+1}</a>
+			{#/if}
+		{#/for}
+		<a href="#" class="next {#if $T.games.page == Math.ceil($T.games.total/$T.games.count)-1}disabled{#/if}">&rsaquo;</a>
+		<a href="#" class="last page {#if $T.games.page == Math.ceil($T.games.total/$T.games.count)-1}disabled{#/if}" page="{Math.ceil($T.games.total/$T.games.count)-1}">&raquo;</a>
+	</p>
+</div>
+{#/if}

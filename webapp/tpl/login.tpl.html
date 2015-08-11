@@ -1,0 +1,35 @@
+<DIV id="login_box" class="box">
+	<DIV id="logo"></DIV>
+	<DIV id="switch">
+		<SPAN id="switch_login" class="active">{t("login.login")}</SPAN><SPAN id="switch_register">{t("login.register")}</SPAN>
+	</DIV>
+	<DIV id="error_container">
+		<span id="error"><span class="arrow"></span><ul class="message"></ul></span>
+	</DIV>
+	<DIV id="login">
+		<p class="row"></p>
+		<P class="row" id="login_name_row">
+			<LABEL for="login_name">{t("login.name")}</LABEL><INPUT type="text" id="login_name"></INPUT>
+		</P>
+		<P class="row" id="login_password_row">
+			<LABEL for="login_password">{t("login.password")}</LABEL><INPUT type="password" id="login_password"></INPUT>
+		</P>
+		<p class="row"></p>
+		<P class="row center"><BUTTON id="login_button">{t("login.login")}</BUTTON></P>
+	</DIV>
+	<DIV id="register">
+		<P class="row" id="register_name_row">
+			<LABEL for="register_name">{t("login.name")}</LABEL><INPUT type="text" id="register_name"></INPUT>
+		</P>
+		<P class="row" id="register_mail_row">
+			<LABEL for="register_mail">{t("login.mail")}</LABEL><INPUT type="text" id="register_mail"></INPUT>
+		</P>
+		<P class="row" id="register_password_row">
+			<LABEL for="register_password">{t("login.password")}</LABEL><INPUT type="password" id="register_password"></INPUT>
+		</P>
+		<P class="row" id="register_password_repeat_row">
+			<LABEL for="register_password_repeat">{t("login.repeat")}</LABEL><INPUT type="password" id="register_password_repeat"></INPUT>
+		</P>
+		<P class="row center"><BUTTON id="register_button">{t("login.register")}</BUTTON></P>
+	</DIV>
+</DIV>

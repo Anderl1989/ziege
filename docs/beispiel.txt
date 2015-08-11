@@ -1,0 +1,5 @@
+WENN |                                 'LEERTASTE' gedrückt wird |
+     | UND   die Variable "shootTimer" 'KLEINER ODER GLEICH' "0" |
+
+DANN |                                 erstelle 'BULLET' |
+     | UND   'SETZE' die Variable "shootTimer" auf "300" |

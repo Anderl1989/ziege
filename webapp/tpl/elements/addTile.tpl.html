@@ -1,0 +1,73 @@
+{#literal}
+<style type="text/css">
+	#addTileContainer{
+		margin: 0 auto;
+		width: 280px;
+		background-color: #fff;
+		box-shadow: 2px 2px 0 0 #28678F;
+	}
+	#addTileHeader{
+		height: 30px;
+		line-height: 30px;
+		background-color: #28678F;
+		text-align: center;
+		color: #fff;
+	}
+	.addTileBox{
+		width: 120px;
+		color: #3b97d2;
+		display: block;
+	}
+	#addFilesToTileset{
+		float: left;
+		margin: 10px 0 10px 10px;
+	}
+	#addPublicTileset{
+		float: right;
+		margin: 10px 10px 10px 0;
+	}
+	.addTileBoxHeader{
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		color: #3b97d2;
+	}
+	.addTileBoxBody{
+		background-color: #3b97d2;
+		width: 120px;
+		height: 120px;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	#addTileClear{
+		clear: both;
+	}
+	.addTileCloseOverlay{
+		width: 20px;
+		height: 20px;
+		display: inline-block;
+		float: right;
+	}
+	#addFilesToTilesetInput{
+		display: none;
+	}
+	#addFilesToTileset .addTileBoxBody{
+		background-image: url("../res/icons/upload.png");
+	}
+	#addPublicTileset .addTileBoxBody{
+		background-image: url("../res/icons/tile_explorer.png");
+	}
+</style>
+{#/literal}
+<div id="addTileContainer">
+	<div id="addTileHeader">{t("addTile.header")}<span class="addTileCloseOverlay click" id="closeOverlay">X</span></div>
+	<label class="click addTileBox" id="addFilesToTileset" for="addFilesToTilesetInput">
+		<div class="addTileBoxHeader">{t("addTile.upload")}</div>
+		<div class="addTileBoxBody"></div>
+	</label><DIV class="click addTileBox" id="addPublicTileset">
+		<div class="addTileBoxHeader">{t("addTile.explorer")}</div>
+		<div class="addTileBoxBody"></div>
+	</DIV>
+	<div id="addTileClear"></div>
+	<input type="file" id="addFilesToTilesetInput" multiple></input>
+</div>

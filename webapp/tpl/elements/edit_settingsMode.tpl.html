@@ -1,0 +1,39 @@
+{#include grid root=$T}
+
+<div class="subbox">
+	<div id="gameNameHeader" class="boxHeader">{t("edit.settings.name")}</div>
+	<input type="text" id="gameName" value="{$T.gameName}"></div>
+</div>
+
+
+<div class="subbox">
+	<div id="settingsPlayfieldHeader" class="boxHeader">{t("edit.settings.playfield")}</div>
+	<div id="settingsPlayfieldContainer">
+		<div id="currentPlayfieldSizeContainer">
+			{t("edit.settings.playfieldSizeCurrent")}
+			<span id="currentPlayfieldSize"></span>
+		</div>
+		<div id="newPlayfieldSizeContainerSpacer">
+			<div id="newPlayfieldSizeContainer">
+				{t("edit.settings.playfieldSizeNew")}
+				<span id="newPlayfieldSize"></span>
+			</div>
+		</div>
+		<div id="playfieldSizeChangeContainer">
+			<div id="playfieldSizeChangeBorder"></div>
+			<input type="number" id="playfieldSizeChangeTop" value="0"/>
+			<input type="number" id="playfieldSizeChangeLeft" value="0"/>
+			<input type="number" id="playfieldSizeChangeRight" value="0"/>
+			<input type="number" id="playfieldSizeChangeBottom" value="0"/>
+			<div id="playfieldSizeChangeApply" class="click">{t("edit.settings.playfieldSizeApply")}</div>
+			<div class="playfieldArrow" id="playfieldSizeChangeTopInc"></div>
+			<div class="playfieldArrow" id="playfieldSizeChangeTopDec"></div>
+			<div class="playfieldArrow" id="playfieldSizeChangeLeftInc"></div>
+			<div class="playfieldArrow" id="playfieldSizeChangeLeftDec"></div>
+			<div class="playfieldArrow" id="playfieldSizeChangeRightInc"></div>
+			<div class="playfieldArrow" id="playfieldSizeChangeRightDec"></div>
+			<div class="playfieldArrow" id="playfieldSizeChangeBottomInc"></div>
+			<div class="playfieldArrow" id="playfieldSizeChangeBottomDec"></div>
+		</div>
+	</div>
+</div>

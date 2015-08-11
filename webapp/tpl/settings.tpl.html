@@ -1,0 +1,25 @@
+<DIV id="settings_box" class="box">
+	<DIV id="logo"></DIV>
+	<DIV id="switch">
+		<SPAN class="active">{t("settings.header") + " " + TOOLS.Storage.get('user')}</SPAN>
+	</DIV>
+	<DIV id="error_container">
+		<span id="error"><span class="arrow"></span><ul class="message"></ul></span>
+	</DIV>
+	<DIV id="settings">
+		<P class="row" id="settings_mail_row">
+			<LABEL for="settings_mail">{t("settings.mail")}</LABEL><INPUT type="text" id="settings_mail" value="{(TOOLS.Storage.get('mail'))? TOOLS.Storage.get('mail') : ""}" placeholder="{t('settings.optional')}"></INPUT>
+		</P>
+		<P class="row" id="settings_new_password_row">
+			<LABEL for="settings_new_password">{t("settings.newPassword")}</LABEL><INPUT type="password" id="settings_new_password" placeholder="{t('settings.optional')}"></INPUT>
+		</P>
+		<P class="row" id="settings_new_password_repeat_row">
+			<LABEL for="settings_new_password_repeat">{t("settings.repeat")}</LABEL><INPUT type="password" id="settings_new_password_repeat" placeholder="{t('settings.optional')}"></INPUT>
+		</P>
+		<hr/>
+		<P class="row" id="settings_password_row">
+			<LABEL for="settings_password">{t("settings.password")}</LABEL><INPUT type="password" id="settings_password" placeholder="{t('settings.required')}"></INPUT>
+		</P>
+		<P class="row center"><BUTTON id="update_button">{t("settings.update")}</BUTTON></P>
+	</DIV>
+</DIV>

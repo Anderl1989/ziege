@@ -1,0 +1,28 @@
+#myGames_addGame{
+	float: left;
+	margin: 20px 80px 60px 0;
+	width: 280px;
+	height: 290px;
+	background-color: rgba(0,0,0,0);
+	position: relative;
+	border: 6px dashed #ffffff;
+	font-size: 80px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 270px;
+	font-weight: bold;
+	cursor: pointer;
+}
+#myGames_addGame:nth-child(3n+0){
+	margin-right: 0px;
+}
+#myGames_addGame:hover{
+	color: #f16022;
+	border-color: #f16022;
+}
+
+#myGames_unpublished,
+#myGames_published{
+	width: 1000px;
+	clear: both;
+}

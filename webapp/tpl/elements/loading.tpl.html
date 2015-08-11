@@ -1,0 +1,53 @@
+{#literal}
+<style type="text/css">
+	#loadingBg{
+		position: fixed;
+		z-index: 10000;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0,0,0,0.5);
+		display: none;
+		width: 100%;
+		height: 100%;
+	}
+	#loadingBoxPositioner{
+		width: 100%;
+		height: 100%;
+		display: table-cell;
+		vertical-align: middle;
+	}
+	#loadingBox{
+		width: 100px;
+		height: 50px;
+		margin: 0 auto;
+		
+		border: 3px solid #f16022;
+		background-color: #ffffff;
+		color: #266891;
+		padding: 10px;
+	}
+</style>
+<SCRIPT type="text/javascript">
+	var loadingCount = 0;
+	var showLoading = function(){
+		loadingCount++;
+		$("#loadingBg").css("display","table");
+	};
+	var hideLoading = function(){
+		loadingCount--;
+		if(loadingCount <= 0){
+			$("#loadingBg").css("display","none");
+			loadingCount = 0;
+		}
+	};
+</SCRIPT>
+{#/literal}
+<DIV id="loadingBg">
+	<div id="loadingBoxPositioner">
+		<div id="loadingBox">
+			Loading...
+		</div>
+	</div>
+</DIV>

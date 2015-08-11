@@ -1,0 +1,13 @@
+{#include header root=$T}
+
+{#if navigator.userAgent.toLowerCase().indexOf("chrome") == -1}
+	<div id="infoBox">
+		{t("chromeRecommended")}
+	</div>
+{#/if}
+
+<div class="showroomTitle">Alle Spiele</div>
+<div id="index_showroom" class="showroom highlight">
+</div>
+
+<div id="version">v. &alpha;-150706-1741</div>

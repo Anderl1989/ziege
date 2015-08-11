@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<HTML>
+	<HEAD>
+		<TITLE>Linux NodeJS production server setup guide on Debian</TITLE>
+		<style type="text/css">
+			*{
+				box-sizing: border-box;
+			}
+			html, body{
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			#container{
+				width: 100%;
+				margin: 0 auto;
+				padding: 10px;
+			}
+			.left{
+				width: 50%;
+				float: left;
+				margin: 0;
+				padding: 0 10px;
+			}
+			.right{
+				width: 50%;
+				float: right;
+				margin: 0;
+				border-left: 1px solid #ccc;
+				padding: 0 10px;
+			}
+			h1, h2, h3, h4, h5, p, pre{
+				clear: both;
+			}
+			.code{
+				font-family: Courier New, monospace;
+				font-size: 10pt;
+				border: 1px solid #ccc;
+				padding: 10px;
+				overflow: hidden;
+			}
+			.code::before{
+				content: "> ";
+				color: #999;
+				font-weight: bold;
+				user-select: none;
+			}
+			.note{
+				font-weight: bold;
+				color: #f00;
+			}
+			.file{
+				font-family: Courier New, monospace;
+				font-size: 10pt;
+				border: 1px solid #ccc;
+				padding: 10px;
+				overflow: hidden;
+			}
+			p, pre{
+				margin-left: 10px;
+			}
+		</style>
+	</HEAD>
+	<BODY>
+		<div id="container">
+			<h1>Linux NodeJS production server setup guide on Debian</h1>
+			
+			<h2>Installation</h2>
+			
+			<h3>Update package manager:</h3>
+			<p class="code">sudo apt-get update && sudo apt-get upgrade</p>
+			
+			<div class="left">
+				<p><em>x86</em></p>
+				
+				<h3>Installing required packages:</h3>
+				<p class="code">sudo apt-get install git-core</p>
+				
+				<h3>Installing nodejs:</h3>
+				<p class="code">sudo apt-get install nodejs</p>
+				
+				<h3>Installing mongodb:</h3>
+				<p class="code">sudo apt-get install mongodb-org</p>
+				
+				<!--<h3>Installing varnish:</h3>
+				<p class="code">sudo apt-get install varnish</p>-->
+			</div>
+			
+			<div class="right">
+				<p><em>ARM (RPi)</em></p>
+				
+				<h3>Installing required packages:</h3>
+				<p class="code">sudo apt-get install git-core build-essential scons libpcre++-dev xulrunner-dev libboost-dev libboost-program-options-dev libboost-thread-dev libboost-filesystem-dev</p>
+				
+				<h3>Installing nodejs:</h3>
+				<p>Search newest version for linux-arm-pi at <a href="http://nodejs.org/dist/">http://nodejs.org/dist/</a> copy link and replace in following commands:</p>
+				<p class="code">cd /opt</p>
+				<p class="code">sudo wget http://nodejs.org/dist/v0.10.28/node-v0.10.28-linux-arm-pi.tar.gz</p>
+				<p class="code">sudo tar xfvz node-v0.10.28-linux-arm-pi.tar.gz</p>
+				<p class="code">sudo rm node-v0.10.28-linux-arm-pi.tar.gz</p>
+				<p class="code">sudo mv node-v0.10.28-linux-arm-pi/ node/</p>
+				
+				<h3>Installing mongodb:</h3>
+				<p class="code">sudo git clone https://github.com/brice-morin/ArduPi.git</p>
+				<p class="code">cd ArduPi</p>
+				<p class="code">sudo adduser --firstuid 100 --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb</p>
+				<p class="code">sudo cp -R mongodb-rpi/mongo /opt</p>
+				<p class="code">sudo chmod +x /opt/mongo/bin/*</p>
+				<p class="code">sudo mkdir /var/log/mongodb</p>
+				<p class="code">sudo chown mongodb:nogroup /var/log/mongodb</p>
+				<p class="code">sudo mkdir /var/lib/mongodb</p>
+				<p class="code">sudo chown mongodb:nogroup /var/lib/mongodb</p>
+				<p class="code">sudo cp mongodb-rpi/driver-c/libbson.so /lib</p>
+				<p class="code">sudo cp mongodb-rpi/driver-c/libmongoc.so /lib</p>
+				<p class="code">cd /lib</p>
+				<p class="code">sudo ldconfig</p>
+				
+				<!--<h3>Installing varnish:</h3>
+				<p class="code">sudo git clone https://github.com/varnish/Varnish-Cache.git</p>
+				<p class="code">cd Varnish-Cache/</p>
+				<p class="code">sudo apt-get install autotools-dev autoconf libpcre3-dev libedit-dev libncurses5-dev automake libtool groff-base python-docutils pkg-config</p>
+				<p>The next commands will take long, consider using tmux when connected via ssh</p>
+				<p class="code">sudo sh autogen.sh</p>
+				<p class="code">sudo sh configure --enable-diagnostics --enable-debugging-symbols</p>
+				<p class="code">sudo make</p>
+				<p class="code">sudo make install</p>
+				<p class="code">sudo ldconfig -n /usr/local/lib/</p>-->
+				
+				<h3>Add nodejs and mongodb to PATH:</h3>
+				<p class="code">nano ~/.profile</p>
+				<p>Add new line at end of file:</p>
+				<p class="file">export PATH=$PATH:/opt/node/bin:/opt/mongo/bin</p>
+				<p>Save with Ctrl+x, y, enter</p>
+				<p class="code">source ~/.profile</p>
+			</div>
+			
+			<h3>Install nginx:</h3>
+			<p class="code">sudo apt-get install nginx</p>
+			
+			<h3>Install upstart:</h3>
+			<p class="code">sudo apt-get install upstart</p>
+			
+			<h3>Install monit:</h3>
+			<p class="code">sudo apt-get install monit</p>
+			
+			<h2>Configuration:</h2>
+			
+			<h3>Creating important folders</h3>
+			<p class="code">sudo mkdir /home/pi/db</p>
+			<p class="code">sudo mkdir /home/pi/logs</p>
+			
+			<div class="right">
+				<p><em>ARM (RPi)</em></p>
+				
+				<h3>Adjust some nginx settings:</h3>
+				<p class="code">sudo sed -i "s/worker_processes 4;/worker_processes 1;/g" /etc/nginx/nginx.conf</p>
+				<p class="code">sudo sed -i "s/worker_connections 768;/worker_connections 128;/g" /etc/nginx/nginx.conf</p>
+			</div>
+			
+			<h3>Nginx configuration:</h3>
+			<p>create new file at /etc/nginx/sites-available/ with any name, for example "ziege":</p>
+			<p class="code">sudo nano ziege</p>
+			<pre class="file">upstream server_pool {
+	ip_hash;
+	server 127.0.0.1:8080;
+	# ADD MORE NODE INSTANCES HERE
+	keepalive 64;
+}
+
+server {
+	listen 80;
+
+	# REPLACE SERVER NAME
+	server_name myapp.com;
+
+	# REPLACE SERVER NAME
+	return 301 $scheme://www.myapp.com$request_uri;
+}
+
+server {
+	listen 80;
+
+	# REPLACE SERVER NAME
+	server_name www.myapp.com;
+
+	location /rest/ {
+		proxy_redirect         off;
+		proxy_set_header       X-Real-IP         $remote_addr;
+		proxy_set_header       X-Forwarded-For   $proxy_add_x_forwarded_for;
+		proxy_set_header       X-Forwarded-Proto $scheme;
+		proxy_set_header       Host              $http_host;
+		proxy_set_header       X-NginX-Proxy     true;
+		proxy_set_header       Connection "";
+		proxy_http_version     1.1;
+		proxy_pass             http://server_pool;
+		proxy_intercept_errors on;
+	}
+
+	location / {
+		# CHANGE ROOT ADDRESS TO STATIC FILES PATH (GIT/webapp)
+		root /home/pi/ziege/webapp;
+		access_log off;
+		expires max;
+	}
+}</pre>
+			<p>create symbolic link from the file in /etc/nginx/sites-available to /etc/nginx/sites-enabled:</p>
+			<p class="code">sudo ln -s /etc/nginx/sites-available/ziege /etc/nginx/sites-enabled/ziege</p>
+			<p>Make sure that there are no other enabled sites with conflicting configuration.</p>
+			<p>Restart nginx:</p>
+			<p class="code">sudo service nginx restart</p>
+			
+			<!--<h3>Varnish configuration:</h3>
+			<p>Edit /etc/default/varnish:</p>
+			
+			<div class="left">
+				<p><em>x86</em></p>
+				<pre class="file">DAEMON_OPTS="-a :80 \
+             -T localhost:6082 \
+             -f /etc/varnish/default.vcl \
+             -S /etc/varnish/secret \
+             -s malloc,256m"</pre>
+			</div>
+			
+			<div class="right">
+				<p><em>ARM (RPi)</em></p>
+				<pre class="file">DAEMON_OPTS="-a :80 \
+             -T localhost:6082 \
+             -f /etc/varnish/default.vcl \
+             -S /etc/varnish/secret \
+             -s malloc,128m"</pre>
+			</div>
+			
+			<p>Edit /etc/varnish/default.vcl</p>
+			<pre class="file">backend default {
+    .host = "127.0.0.1";
+    .port = "8080";
+}
+  
+  sub vcl_recv {
+    if (req.restarts == 0) {
+        if (req.http.x-forwarded-for) {
+            set req.http.X-Forwarded-For =
+                req.http.X-Forwarded-For + ", " + client.ip;
+        } else {
+            set req.http.X-Forwarded-For = client.ip;
+        }
+     }
+     if (req.request != "GET" &&
+       req.request != "HEAD" &&
+       req.request != "PUT" &&
+       req.request != "POST" &&
+       req.request != "TRACE" &&
+       req.request != "OPTIONS" &&
+       req.request != "DELETE") {
+         /* Non-RFC2616 or CONNECT which is weird. */
+         return (pipe);
+     }
+     if (req.request != "GET" && req.request != "HEAD") {
+         /* We only deal with GET and HEAD by default */
+         return (pass);
+     }
+     # force lookup for static assets
+     if (req.url ~ "\.(png|gif|jpg|swf|css|js|html|ico)$") {
+         return(lookup);
+     }
+     if (req.http.Authorization || req.http.Cookie) {
+         /* Not cacheable by default */
+         return (pass);
+     }
+     return (lookup);
+ }
+ 
+  sub vcl_fetch {
+     # strip the cookie before static asset is inserted into cache.
+     if (req.url ~ "\.(png|gif|jpg|swf|css|js|html|ico)$") {
+         unset beresp.http.set-cookie;
+     }
+     if (beresp.ttl <= 0s ||
+         beresp.http.Set-Cookie ||
+         beresp.http.Vary == "*") {
+                /*
+                 * Mark as "Hit-For-Pass" for the next 2 minutes
+                 */
+                set beresp.ttl = 120 s;
+                return (hit_for_pass);
+     }
+     return (deliver);
+  }</pre>
+			<p>Restart Varnish:</p>
+			<p class="code">sudo service varnish restart</p>
+			-->
+			<!--
+				http://blog.dealspotapp.com/post/40184153657/node-js-production-deployment-with-nginx-varnish
+				http://codeplease.wordpress.com/2013/09/27/deploying-node-js-production/
+			-->
+						
+			<h3>Upstart configuration:</h3>
+			<p>For each node server create one file under /etc/init:</p>
+			<p class="code">sudo nano /etc/init/node1.conf</p>
+			<pre class="file">#/etc/init/node1.conf
+description "Ziege Node.js"
+author "andreas.kasch@gmail.com"
+ 
+start on (local-filesystems and net-device-up IFACE=eth0)
+stop on shutdown
+ 
+respawn
+respawn limit 10 5
+ 
+script
+        export HOME="/root"
+
+        echo $$ > /var/run/node1.pid
+        cd /home/pi/ziege/server
+        exec sudo -u pi NODE_ENV=production /opt/node/bin/node /home/pi/ziege/server/app.js port=8080 >> /home/pi/server.log 2>&1
+end script</pre>
+			<p>Create one file for your mongodb</p>
+			<p class="code">sudo nano /etc/init/mongo.conf</p>
+			<pre class="file">#/etc/init/mongo.conf
+description "Ziege mongoDB"
+author "andreas.kasch@gmail.com"
+
+limit nofile 20000 20000
+
+kill timeout 300 # wait 300s between SIGTERM and SIGKILL.
+
+pre-start script
+    mkdir -p /var/lib/mongodb/
+    mkdir -p /var/log/mongodb/
+end script
+
+start on runlevel [2345]
+stop on runlevel [06]
+ 
+script
+        cd /home/pi/ziege/server
+        exec sudo -u pi /opt/mongo/bin/mongod --dbpath /home/pi/db >> /home/pi/logs/mongo.log 2>&1
+end script</pre>
+			
+			<h3>Monit configuration:</h3>
+			<p>For each node server create one file under /etc/monit/conf.d:</p>
+			<p class="code">sudo nano /etc/monit/conf.d/node1.conf</p>
+			<pre class="file">check process node1 with pidfile "/var/run/node1.pid"
+        start "/sbin/start node1"
+        stop "/sbin/stop node1"
+        if failed port 8080 protocol HTTP
+                request /
+                with timeout 10 seconds
+                then restart</pre>
+			<p>Create one file for your mongodb</p>
+			<p class="code">sudo nano /etc/monit/conf.d/mongo.conf</p>
+			<pre class="file">check process mongodb
+  with pidfile "/home/pi/db/mongod.lock"
+  start program = "/sbin/start mongodb"
+  stop program = "/sbin/stop mongodb"
+  if failed port 28017 protocol http
+    and request "/" with timeout 10 seconds then restart
+  if 5 restarts within 5 cycles then timeout</pre>
+			<p>Restart monit:</p>
+			<p class="code">sudo service monit restart</p>
+			
+			
+			<h3>Repository configuration:</h3>
+			<p class="code">cd /home/pi</p>
+			<p class="code">mkdir ziege.git</p>
+			<p class="code">mkdir ziege</p>
+			<p class="code">cd ziege.git</p>
+			<p class="code">git init --bare</p>
+			<p>Now create the post-receive-hook:</p>
+			<p class="code">sudo nano /home/pi/ziege.git/hooks/post-receive</p>
+			<pre class="file">#!/bin/sh
+ 
+GIT_WORK_TREE=/home/pi/ziege git checkout -f
+ 
+echo "Installing dependencies..."
+cd /home/pi/ziege
+npm install
+ 
+echo "Restarting node.js..."
+sudo restart node1
+sudo restart node2</pre>
+			<p class="code">sudo chmod +x /home/pi/ziege.git/hooks/post-receive</p>
+			
+			<h3>Local Reposiory configuration:</h3>
+			<p>Add remote repository (replace username,ip and repo name/location) and push repo: ssh://pi@192.168.0.6/home/pi/ziege.git</p>
+			
+			
+			<h1>Other helpful commands</h1>
+			
+			<h2>Shutdown Linux:</h2>
+			<p class="code">sudo shutdown -h 0</p>
+			
+			<h2>Search package:</h2>
+			<p class="code">apt-cache search keyword</p>
+			
+			<h2>Jobs FG/BG management:</h2>
+			
+			<h3>Send job to background:</h3>
+			<p>Append & to command at end of line</p>
+			<p>Or Ctrl+Z when job is running, then</p>
+			<p class="code">bg</p>
+			
+			<h3>Get job numbers:</h3>
+			<p class="code">jobs</p>
+			
+			<h3>Bring job to front:</h3>
+			<p class="code">fg jobnumber</p>
+			
+			<h2>tmux:</h2>
+			<p class="code">sudo apt-get install tmux</p>
+			<p>Run:</p>
+			<p class="code">tmux</p>
+			<p>Now run commands, putty can be closed now</p>
+			<p>Restore session:</p>
+			<p class="code">tmux attach</p>
+			<p>suspend tmux: ctrl+b, ctrl+z</p>
+			<p>close tmux: ctrl+b, x</p>
+			
+			<h2>nano:</h2>
+			<p><a href="http://mintaka.sdsu.edu/reu/nano.html">http://mintaka.sdsu.edu/reu/nano.html</a></p>
+			<p>ctrl+o save</p>
+			<p>ctrl+x quit</p>
+			<p>ctrl+k delete line</p>
+			<p>ctrl+d delet character under cursor</p>
+			<p>ctrl+V move one page up</p>
+			<p>ctrl+Y move one page down</p>
+			<p>ctrl+w search text</p>
+		</div>
+	</BODY>
+</HTML>

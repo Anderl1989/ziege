@@ -1,0 +1,123 @@
+html, body{
+	width: 100%;
+	height: 100%;
+	display: table;
+}
+#container{
+	width: 100%;
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+#login_box{
+	width: 350px;
+	margin: 0 auto;
+	background-color: #fff;
+}
+#logo{
+	width: 350px;
+	height: 160px;
+	background-image: url("../res/ZIEGE.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+#switch{
+	width: 100%;
+	height: 40px;
+}
+#switch span{
+	width: 50%;
+	display: inline-block;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+	font-weight: bold;
+	text-decoration: underline;
+	color: #3597D3;
+}
+#switch span.active{
+	background-color: #3597D3;
+	color: #fff;
+}
+#login, #register{
+	width: 100%;
+	padding: 20px 30px;
+	background-color: #3597D3;
+}
+.row{
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	position: relative;
+}
+.row:last-child{
+	margin-top: 20px;
+}
+#error_container{
+	position: relative;
+	height: 0px;
+	width: 100%;
+}
+#error{
+	color: #fff;
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 355px;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+}
+.row.error input{
+	border: 1px solid #b00;
+}
+#error .arrow{
+	position: absolute;
+	top: 10px;
+	left: -20px;
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-width: 10px;
+	border-style: solid;
+	border-color: rgba(255,255,255,0);
+	border-right-color: #b00;
+}
+#error .message{
+	display: inline-block;
+	padding: 10px 10px 10px 30px;
+	background-color: #b00;
+	line-height: 20px;
+}
+.center{
+	text-align: center;
+}
+label{
+	width: 40%;
+	display: inline-block;
+}
+input{
+	width: 60%;
+	border: 0px none #fff;
+	padding: 5px;
+}
+#login_button, #register_button{
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	width: 50%;
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+	background-color: #fff;
+	color: #3597D3;
+	font-weight: bold;
+	cursor: pointer;
+	border: 0 none #fff;
+	font-size: 16px;
+}
+#register{
+	display: none;
+}

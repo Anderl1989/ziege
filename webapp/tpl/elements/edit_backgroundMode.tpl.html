@@ -1,0 +1,29 @@
+{#include grid root=$T}
+
+<div class="subbox">
+	<div id="backgroundHeader" class="boxHeader">{t("edit.background.header")}</div>
+	<div id="background_container">
+	<div>
+		{#foreach $T.backgrounds as bg}
+			<span class="background {#if "game.backgroundImage." + $T.bg$key == $T.drawBackground}active{#/if}" style="background-image: url({$T.bg.src || $T.bg.img.src})" backgroundId="game.backgroundImage.{$T.bg$key}"></span>
+		{#/for}
+	</div>
+	
+	
+	{#foreach $T.tilesets as ts}
+		<div class="tilesetBox">
+			<div class="tilesetBoxHeader click">{$T.ts.name}</div>
+			{#foreach $T.ts.backgroundImage as bg}
+				<span class="background {#if $T.ts$key + ".backgroundImage." + $T.bg$key == $T.drawBackground}active{#/if}" style="background-image: url({$T.bg.src || $T.bg.img.src})" backgroundId="{$T.ts$key}.backgroundImage.{$T.bg$key}"></span>
+			{#/for}
+			<div class="tilesetBoxEnd"/>
+		</div>
+	{#/for}
+	
+	
+	</div>
+	<div id="tileset_footer">
+		<span class="tileset_footer_button click" id="addTilesetElement"></span>
+		<span class="tileset_footer_button click" id="removeTilesetElement"></span>
+	</div>
+</div>

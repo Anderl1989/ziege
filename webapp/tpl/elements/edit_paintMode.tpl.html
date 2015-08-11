@@ -1,0 +1,27 @@
+{#include grid root=$T}
+{#include layers root=$T}
+
+<div class="subbox">
+	<div id="paintHeader" class="boxHeader">{t("edit.paint.elements")}</div>
+	<div id="levelbox_container">
+	<div>
+		{#foreach $T.boxes as box}
+			<span class="levelbox {#if "game.box." + $T.box$key == $T.drawBox}active{#/if}" style="background-image: url({$T.box.src || $T.box.img.src})" boxId="game.box.{$T.box$key}"></span>
+		{#/for}
+	</div>
+	{#foreach $T.tilesets as ts}
+		<div class="tilesetBox">
+			<div class="tilesetBoxHeader click">{$T.ts.name}</div>
+			{#foreach $T.ts.box as box}
+				<span class="levelbox {#if $T.ts$key + ".box." + $T.box$key == $T.drawBox}active{#/if}" style="background-image: url({$T.box.src || $T.box.img.src})" boxId="{$T.ts$key}.box.{$T.box$key}"></span>
+			{#/for}
+			<div class="tilesetBoxEnd"/>
+		</div>
+	{#/for}
+	
+	</div>
+	<div id="tileset_footer">
+		<span class="tileset_footer_button click" id="addTilesetElement"></span>
+		<span class="tileset_footer_button click" id="removeTilesetElement"></span>
+	</div>
+</div>

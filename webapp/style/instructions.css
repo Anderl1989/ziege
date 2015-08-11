@@ -1,0 +1,43 @@
+#instructionsWrapper{
+	width: 1000px;
+	margin: 0 auto;
+	color: #fff;
+}
+
+#toc li{
+	margin-left: 1em;
+}
+
+#toc,
+#about,
+#register,
+#editor,
+#showcase{
+	margin: 50px 0;
+}
+
+#instructionsWrapper h3{
+	margin: 10px 0;
+}
+
+#instructionsWrapper h4{
+	margin: 20px 0 10px;
+}
+
+#instructionsWrapper h5{
+	margin: 10px 0 5px;
+}
+
+#instructionsWrapper p{
+	margin: 5px 0;
+}
+
+dd{
+	margin-left: 40px;
+}
+
+#graphicsDownloadButton{
+	font-weight: bold;
+	font-size: 20px;
+	color:  #f16022;
+}

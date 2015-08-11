@@ -1,0 +1,343 @@
+html, body{
+	font-family: 'Open Sans', Verdana, Arial, sans-serif;
+	font-size: 16px;
+	display: table;
+	width: 100%;
+	height: 100%;
+	background-color: #266891;
+}
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:not(input){
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.box{
+	background-color: #fec;
+	/*background-color: #fff;*/
+	/*box-shadow: 0 9px 0 -6px #ccc, 0 -9px 0 -6px #ccc;*/
+	box-shadow: 3px 3px 0 0 #215B80;
+	margin: 20px auto 0;
+}
+.boxHeader{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 20px;
+	/*background-color: #9AB;*/
+	background-color: #3597D3;
+	color: #fff;
+}
+
+.subbox{
+	margin: 10px;
+	background-color: #fff;
+}
+
+.subbox .boxHeader{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+.click{
+	cursor: pointer;
+	font-variant: small-caps;
+}
+.click:hover{
+	text-decoration: underline;
+}
+.click.inactive{
+	color: #ccc;
+	cursor: default;
+	text-decoration: none;
+}
+.click.inactive:hover{
+	cursor: default;
+	text-decoration: none;
+}
+.listRow{
+	line-height: 40px;
+	padding: 0 20px;
+	height: 40px;
+	border-bottom: 1px solid rgba(255,255,255,0.8);
+}
+.listRow:last-child{
+	border-bottom: 0px none;
+}
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
+img{
+	border: 0px none #ffffff;
+	padding: 0;
+	margin: 0;
+}
+
+.showroomTitle{
+	width: 1000px;
+	margin: 40px auto 0;
+	clear: both;
+	color: #ffffff;
+}
+
+.showroom{
+	width: 1000px;
+	margin: 0 auto;
+}
+.showroom_entry{
+	float: left;
+	margin: 20px 80px 60px 0;
+	width: 280px;
+	height: 290px;
+	background-color: #ffffff;
+	position: relative;
+}
+.showroom_entry:nth-child(3n+0){
+	margin-right: 0px;
+}
+.showroom.highlight .showroom_entry:first-child{
+	width: 640px;
+	height: 660px;
+}
+.showroom.highlight .showroom_entry:nth-child(2){
+	margin-right: 0px;
+}
+.showroom_entry_tools{
+	position: absolute;
+	width: 280px;
+	height: 210px;
+	background-color: rgba(255,255,255,0.5);
+	display: none;
+}
+.showroom_entry_tools_buttons{
+	margin: 80px auto;
+	height: 50px;
+	line-height: 50px;
+	width: 200px;
+}
+.showroom_entry_tools_buttons div{
+	height: 50px;
+	line-height: 50px;
+	width: 50px;
+	background-color: #ffffff;
+	border-width: 1px 0 1px 1px;
+	border-style: solid;
+	border-color: #3597D3;
+	float: left;
+	/*background-size: 100%;*/
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.showroom_entry_tools_button_edit{
+	background-image: url("../res/icons/edit_game.png");
+}
+.showroom_entry_tools_button_copy{
+	background-image: url("../res/icons/duplicate_game.png");
+}
+.showroom_entry_tools_button_share{
+	background-image: url("../res/icons/share_game.png");
+}
+.showroom_entry_tools_button_unshare{
+	background-image: url("../res/icons/unshare_game.png");
+}
+.showroom_entry_tools_button_remove{
+	background-image: url("../res/icons/remove_game.png");
+}
+.showroom_entry_tools_button_shareTileset{
+	display: none;
+}
+.showroom_entry_tools_buttons div:last-child{
+	border-width: 1px 1px 1px 1px;
+}
+.showroom_entry:hover .showroom_entry_tools{
+	display: block;
+}
+.showroom_entry_image{
+	width: 280px;
+	height: 210px;
+	display: block;
+	background-color: #000000;
+}
+.showroom.highlight .showroom_entry:first-child .showroom_entry_image{
+	width: 640px;
+	height: 480px;
+}
+.showroom_entry_content p{
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.showroom_entry_content{
+	width: 280px;
+	height: 80px;
+	background-color: #3597D3;
+	color: #ffffff;
+	padding: 10px;
+	margin: 0;
+}
+.showroom_entry_content .ratingContainer{
+	float: right;
+}
+.showroom.highlight .showroom_entry:first-child .showroom_entry_content{
+	width: 640px;
+	height: 180px;
+}
+
+.pagingContainer{
+	margin-bottom: 60px;
+	color: #ffffff;
+}
+
+.pagingContainer a{
+	color: #ffffff;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	width: 30px;
+	text-align: center;
+}
+
+.pagingContainer a:not(.disabled):hover{
+	text-decoration: underline;
+}
+
+.pagingContainer a.disabled{
+	cursor: default;
+	color: #3597D3;
+}
+
+.pagingContainer a.disabled.first,
+.pagingContainer a.disabled.last,
+.pagingContainer a.disabled.prev,
+.pagingContainer a.disabled.next{
+	color: #777777;
+}
+
+#tooltip{
+	border: 3px solid #f16022;
+	z-index: 10000000;
+	position: absolute;
+	background-color: #ffffff;
+	color: #266891;
+	padding: 10px;
+	display: inline-block;
+}
+
+#endGameOverlay{
+	width: 640px;
+	height: 480px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background-color: rgba(0,0,0,0.85);
+	text-align: center;
+	color: #f16022;
+	padding: 50px;
+	display: none;
+}
+#gameOverTitle{
+	font-weight: bold;
+	font-size: 26px;
+	padding: 20px;
+}
+.gameOverText{
+	font-size: 18px;
+	padding: 10px;
+}
+.gameOverButton{
+	font-size: 22px;
+	padding: 10px;
+}
+
+#gamePausedTitle{
+	font-weight: bold;
+	font-size: 26px;
+	padding: 20px;
+}
+#gamePausedRevert{
+	font-size: 22px;
+	padding: 10px;
+}
+
+.rating{
+	height: 22px;
+	width: 132px;
+	position: relative;
+}
+
+.ratingCount{
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 22px;
+	line-height: 22px;
+	width: 22px;
+	text-align: center;
+	color: #777;
+}
+
+.ratingBackground,
+.ratingUsers,
+.ratingOwn,
+.ratingNew,
+.ratingArea{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 22px;
+	background-position: bottom left;
+}
+
+.ratingArea{
+	width: 110px;
+	cursor: pointer;
+}
+
+.ratingBackground{
+	background-image: url("../res/icons/star_grey.png");
+	width: 110px;
+}
+.ratingUsers{
+	background-image: url("../res/icons/star_white.png");
+}
+.ratingOwn{
+	/*background-image: url("../res/icons/star_overlay.png");*/
+	background-image: url("../res/icons/star_grey_border.png"), url("../res/icons/star_grey_border.png");
+	/*height: 22px;*/
+}
+.ratingNew{
+	background-image: url("../res/icons/star_orange.png");
+}
+
+#overlay{
+	position: fixed;
+	z-index: 10000;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.5);
+	display: none;
+	width: 100%;
+	height: 100%;
+}
+#overlayContainer{
+	width: 100%;
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}

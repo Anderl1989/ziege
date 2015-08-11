@@ -1,0 +1,65 @@
+{#include loading root=$T}
+{#include spriteUploader root=$T}
+{#include header root=$T}
+
+<DIV id="editHeader">
+	<DIV id="toolButtonSave" class="click left" tooltip="{t('edit.tool.save')}"></DIV>
+	<DIV id="toolButtonUndo" class="click left inactive" tooltip="{t('edit.tool.undo')}"></DIV>
+	<DIV id="toolButtonRedo" class="click left inactive" tooltip="{t('edit.tool.redo')}"></DIV>
+	<DIV id="toolButtonPlay" class="click right" tooltip="{t('edit.tool.play')}"></DIV>
+</DIV>
+
+<DIV id="editSpacer">
+
+	<DIV id="editToolBox" class="box">
+		<DIV class="boxHeader">{//t("edit.tools")}</DIV>
+		<!--<DIV id="toolButtonSave" class="toolButton small">{t("edit.tool.save")}</DIV>
+		<DIV id="toolButtonPlay" class="click toolButton small">{t("edit.tool.play")}</DIV>-->
+		<DIV id="toolButtonPaint" class="click toolButton" tooltip="{t('tooltip.draw')}"></DIV>
+		<DIV id="toolButtonPaintRect" class="click toolButton" tooltip="{t('tooltip.drawArea')}"></DIV>
+		<DIV id="toolButtonErase" class="click toolButton" tooltip="{t('tooltip.erase')}"></DIV>
+		<DIV id="toolButtonEraseRect" class="click toolButton" tooltip="{t('tooltip.eraseArea')}"></DIV>
+		<DIV id="toolButtonEntity" class="click toolButton" tooltip="{t('tooltip.entities')}"></DIV>
+		<DIV id="toolButtonBackground" class="click toolButton" tooltip="{t('tooltip.backgrounds')}"></DIV>
+		<DIV id="toolButtonSettings" class="click toolButton" tooltip="{t('tooltip.gameSettings')}"></DIV>
+	</DIV>
+
+	<DIV id="editCanvasBox" class="box">
+		<DIV class="boxHeader">
+			<div id="saveSuccessMessage">{t("edit.tool.saveSuccess")}</div>
+			{//t("edit.canvas")}
+			<div id="gameNameDisplay"></div>
+		</DIV>
+		<DIV id="stageContainer">
+			<DIV class="stage" id="stage_bgImg"></DIV>
+			<DIV class="stage" id="stage_bg"></DIV>
+			<DIV class="stage" id="stage_level"></DIV>
+			<DIV class="stage" id="stage_entity"></DIV>
+			<DIV class="stage" id="stage_fg"></DIV>
+			<DIV class="stage" id="stage_grid"></DIV>
+			<DIV class="stage" id="stage_helper"></DIV>
+			<DIV class="stage" id="stage_minimap"></DIV>
+			<DIV class="stage" id="stage_cursor"></DIV>
+			<DIV id="endGameOverlay"></DIV>
+		</DIV>
+		<div id="infoBar">
+			<span id="leftInfoText"></span>
+			<span id="rightInfoText"></span>
+		</div>
+	</DIV>
+	
+	<DIV id="editSettingsBox" class="box">
+		<DIV class="boxHeader">
+		</DIV>
+		<DIV id="settingsContainer">
+		
+		</DIV>
+	</DIV>
+
+
+</DIV>
+
+<DIV id="overlay">
+	<DIV id="overlayContainer">
+	</DIV>
+</DIV>

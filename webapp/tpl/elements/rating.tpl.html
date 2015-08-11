@@ -1,0 +1,11 @@
+<div class="rating" gameId="{$T.gameId}" {#if $T.isRateable}rateable="rateable"{#/if} tooltip="{t('tooltip.rating', ($T.votes > 0)? (~~($T.sum/$T.votes*10))/10 : 0, $T.votes)}">
+	{#if $T.isRateable}<div class="ratingOwn" style="width: {$T.own*22}px"></div>{#/if}
+	<div class="ratingBackground"></div>
+	<div class="ratingUsers" style="width: {(~~($T.sum*2/$T.votes+0.5))*11}px"></div>
+	{#if $T.isRateable}
+	
+	<div class="ratingNew"></div>
+	<div class="ratingArea"></div>
+	{#/if}
+	<div class="ratingCount">({{$T.votes}})</div>
+</div>

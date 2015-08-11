@@ -1,0 +1,596 @@
+#editHeaderBox{
+	width: 1000px;
+	margin-bottom: 10px;
+}
+
+#editSpacer{
+	width: 1000px;
+	position: relative;
+	margin: 0 auto;
+}
+
+#editToolBox{
+	width: 60px;
+	position: absolute;
+	left: 0;
+	margin-top: 10px;
+}
+
+#editCanvasBox{
+	width: 660px;
+	position: absolute;
+	left: 70px;
+	margin-top: 10px;
+	background-color: #fec;
+}
+
+#editSettingsBox{
+	width: 260px;
+	position: absolute;
+	left: 740px;
+	margin-top: 10px;
+}
+
+#stageContainer{
+	width: 660px;
+	height: 500px;
+	position: relative;
+}
+
+#stage_bgImg{
+	background-color: #fff;
+}
+
+.stage{
+	width: 640px;
+	height: 480px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+#stage_cursor{
+	top: 9px;
+	left: 9px;
+	width: 642px;
+	height: 482px;
+}
+
+
+#toolButtonPaint{
+	background-image: url("../res/icons/draw.png");
+}
+#toolButtonPaintRect{
+	background-image: url("../res/icons/draw_area.png");
+}
+#toolButtonErase{
+	background-image: url("../res/icons/erase.png");
+}
+#toolButtonEraseRect{
+	background-image: url("../res/icons/erase_area.png");
+}
+#toolButtonEntity{
+	background-image: url("../res/icons/entities.png");
+}
+#toolButtonSettings{
+	background-image: url("../res/icons/settings.png");
+}
+#toolButtonBackground{
+	background-image: url("../res/icons/background_image.png");
+}
+
+#saveSuccessMessage{
+	font-weight: bold;
+	color: rgb(184, 216, 183);
+	margin-left: 5px;
+	font-size: 12px;
+	display: none;
+	position: absolute;
+}
+
+
+
+#gridHeader{
+	background-position: 4px center;
+	background-repeat: no-repeat;
+	background-image: url("../res/icons/raster.png");
+	padding-left: 35px;
+}
+
+#previewHeader{
+	background-position: 4px center;
+	background-repeat: no-repeat;
+	background-image: url("../res/icons/preview.png");
+	padding-left: 35px;
+}
+
+#layerHeader{
+	background-position: 4px center;
+	background-repeat: no-repeat;
+	background-image: url("../res/icons/layers.png");
+	padding-left: 35px;
+}
+
+#paintHeader{
+	background-size: 32px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-image: url("../res/icons/draw.png");
+	padding-left: 35px;
+}
+
+#entityHeader{
+	background-size: 32px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-image: url("../res/icons/entities.png");
+	padding-left: 35px;
+}
+
+#backgroundHeader{
+	background-size: 32px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-image: url("../res/icons/background_image.png");
+	padding-left: 35px;
+}
+
+
+.toolButton{
+	background-color: #9AB;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 40px;
+	margin: 10px;
+	height: 40px;
+	box-sizing: border-box;
+	padding: 6px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+.toolButton.active,
+.toolButton.active:hover{
+	box-shadow: 0 0 0 5px rgb(184, 216, 183);
+}
+.toolButton.active.mark,
+.toolButton.active.mark:hover{
+	box-shadow: 0 0 0 10px rgb(184, 216, 183);
+}
+
+.toolButton:hover{
+	box-shadow: 0 0 0 5px rgba(184, 216, 183, 0.5);
+}
+.toolButton.mark:hover{
+	box-shadow: 0 0 0 10px rgba(184, 216, 183, 0.5);
+}
+
+/*.toolButton.small{
+	height: 40px;
+}*/
+
+#settingsContainer{
+	/*height: 490px;*/
+}
+
+.layer{
+	cursor: pointer;
+}
+.layer .label{
+	padding: 0 10px;
+	height: 30px;
+	line-height: 30px;
+}
+.layer .indicator{
+	display: inline-block;
+	width: 10px;
+	height: 30px;
+	float: left;
+}
+#layerBackground.active,
+#layerBackground .indicator{
+	background-color: #00f;
+	color: #fff;
+}
+#layerCenter.active,
+#layerCenter .indicator{
+	background-color: #0c0;
+	color: #fff;
+}
+#layerForeground.active,
+#layerForeground .indicator{
+	background-color: #f00;
+	color: #fff;
+}
+.subbox{
+	position: relative;
+}
+#gridOff,
+#gridOn,
+#previewOff,
+#previewOn{
+	position: absolute;
+	right: 0;
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	display: none;
+	color: #fff;
+	margin: 0;
+}
+#gridOff.active,
+#gridOn.active,
+#previewOff.active,
+#previewOn.active{
+	display: inline-block;
+}
+#gridOn,
+#previewOn{
+	background-color: #0c0;
+}
+#gridOff,
+#previewOff{
+	background-color: #f00;
+}
+#gridHeader,
+#previewHeader{
+	display: inline-block;
+	width: 100%;
+}
+
+#levelbox_container { 
+	height: 240px;
+}
+
+#background_container { 
+	height: 370px;
+	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.levelbox{
+	display: block;
+	width: 16px;
+	height: 16px;
+	float: left;
+	cursor: pointer;
+	margin: 1px;
+}
+
+.background{
+	display: block;
+	width: 200px;
+	height: 150px;
+	cursor: pointer;
+	margin: 5px;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.background.active{
+	box-shadow: 0 0 1px 1px #f00;
+}
+
+.levelbox.active{
+	box-shadow: 0 0 1px 1px #f00;
+}
+
+#entity_container { 
+	height: 370px;
+	overflow: auto;
+}
+
+.entity{
+	height: 30px;
+	line-height: 30px;
+}
+.entity:hover{
+	background-color: #CCE6CC;
+	color: #fff;
+}
+.entity.active{
+	background-color: #9c9;
+	color: #fff;
+}
+
+.entityImage{
+	width: 16px;
+	height: 16px;
+	margin: 7px;
+	float: left;
+}
+
+.entityText{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.entityTextBehavior{
+	color: #999;
+	font-size: 10px;
+	font-variant: normal;
+}
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+#infoBar{
+	height: 30px;
+	line-height: 30px;
+	width: 660px;
+	padding: 0 10px;
+}
+
+#leftInfoText{
+	float: left;
+}
+
+#rightInfoText{
+	float: right;
+	text-align: right;
+}
+
+
+
+
+
+
+
+
+
+#settingsPlayfieldContainer{
+	/*background-color: #3597D3;*/
+}
+
+#currentPlayfieldSizeContainer,
+#newPlayfieldSizeContainer{
+	width: 240px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+}
+
+#newPlayfieldSizeContainerSpacer{
+	width: 240px;
+	height: 30px;
+}
+
+#newPlayfieldSizeContainer{
+	color: #f16022;
+	display: none;
+}
+
+#playfieldSizeChangeContainer{
+	width: 240px;
+	height: 210px;
+	position: relative;
+}
+
+#playfieldSizeChangeBorder{
+	top: 40px;
+	left: 45px;
+	border: 3px dashed #f16022;
+	height: 130px;
+	width: 150px;
+	position: absolute;
+}
+
+#playfieldSizeChangeContainer input,
+#playfieldSizeChangeApply{
+	width: 50px;
+	height: 40px;
+	position: absolute;
+	text-align: center;
+	border: 1px solid #f16022;
+}
+
+#playfieldSizeChangeTop{
+	left: 95px;
+	top: 20px;
+}
+#playfieldSizeChangeLeft{
+	left: 20px;
+	top: 85px;
+}
+#playfieldSizeChangeRight{
+	left: 170px;
+	top: 85px;
+}
+#playfieldSizeChangeBottom{
+	left: 95px;
+	top: 150px;
+}
+
+#playfieldSizeChangeApply{
+	top: 85px;
+	left: 95px;
+	line-height: 40px;
+	background-color: #f16022;
+	color: #fff;
+	display: none;
+}
+
+.playfieldArrow{
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: #fff;
+	position: absolute;
+	display: none;
+}
+
+#playfieldSizeChangeTopInc{
+	background-image: url("../res/icons/arrow_up_green.png");
+	top: 0px;
+	left: 95px;
+	width: 50px;
+	height: 20px;
+}
+#playfieldSizeChangeTopDec{
+	background-image: url("../res/icons/arrow_down_red.png");
+	top: 60px;
+	left: 95px;
+	width: 50px;
+	height: 20px;
+}
+#playfieldSizeChangeLeftInc{
+	background-image: url("../res/icons/arrow_left_green.png");
+	top: 85px;
+	left: 0px;
+	width: 20px;
+	height: 40px;
+}
+#playfieldSizeChangeLeftDec{
+	background-image: url("../res/icons/arrow_right_red.png");
+	top: 85px;
+	left: 70px;
+	width: 20px;
+	height: 40px;
+}
+#playfieldSizeChangeRightDec{
+	background-image: url("../res/icons/arrow_left_red.png");
+	top: 85px;
+	left: 150px;
+	width: 20px;
+	height: 40px;
+}
+#playfieldSizeChangeRightInc{
+	background-image: url("../res/icons/arrow_right_green.png");
+	top: 85px;
+	left: 220px;
+	width: 20px;
+	height: 40px;
+}
+#playfieldSizeChangeBottomDec{
+	background-image: url("../res/icons/arrow_up_red.png");
+	top: 130px;
+	left: 95px;
+	width: 50px;
+	height: 20px;
+}
+#playfieldSizeChangeBottomInc{
+	background-image: url("../res/icons/arrow_down_green.png");
+	top: 190px;
+	left: 95px;
+	width: 50px;
+	height: 20px;
+}
+
+#gameName{
+	width: 240px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	border: 1px solid #f16022;
+}
+
+#tileset_footer{
+	height: 20px;
+	background-color: #3b97d2;
+	width: 100%;
+	text-align: right;
+}
+
+.tileset_footer_button{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	/*background-size: contain;*/
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#addTilesetElement{
+	background-image: url("../res/icons/new.png");
+}
+
+#removeTilesetElement{
+	background-image: url("../res/icons/delete.png");
+}
+#addTilesetElement:hover{
+	background-image: url("../res/icons/new_hover.png");
+}
+
+#removeTilesetElement:hover{
+	background-image: url("../res/icons/delete_hover.png");
+}
+
+.tilesetBox:nth-child(even){
+	background-color: #ffd;
+	clear:both;
+}
+
+.tilesetBoxEnd{
+	clear:both;
+	display: block;
+	width: 100%;
+	height: 1px;
+}
+
+.tilesetBoxHeader{
+	clear: both;
+	display: block;
+}
+
+#editHeader{
+	height: 55px;
+	padding: 10px 270px 0 70px;
+	width: 1000px;
+	position: relative;
+	margin: 0 auto;
+}
+
+#editHeader div{
+	width: 45px;
+	height: 45px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+#editHeader div:not(:first-child){
+	margin-left: 10px;
+}
+
+#toolButtonRedo{
+	background-image: url("../res/icons/redo_button.png");
+}
+#toolButtonUndo{
+	background-image: url("../res/icons/undo_button.png");
+}
+
+#toolButtonRedo.inactive{
+	background-image: url("../res/icons/redo_button_hover.png");
+}
+#toolButtonUndo.inactive{
+	background-image: url("../res/icons/undo_button_hover.png");
+}
+
+#toolButtonSave{
+	background-image: url("../res/icons/save_button.png");
+}
+#toolButtonSave.unsaved{
+	background-image: url("../res/icons/save_unsaved.png"), url("../res/icons/empty_button.png");
+}
+
+
+#toolButtonPlay{
+	background-image: url("../res/icons/play_button.png");
+}
+
+#toolButtonPlay.playing{
+	background-image: url("../res/icons/stop.png"), url("../res/icons/play_button.png");
+}
+
+#gameNameDisplay{
+	text-align: center;
+}

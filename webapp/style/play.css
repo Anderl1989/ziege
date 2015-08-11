@@ -1,0 +1,61 @@
+
+#playSpacer{
+	width: 1000px;
+	position: relative;
+	margin: 0 auto;
+}
+
+#playCanvasBox{
+	width: 660px;
+	position: absolute;
+	left: 70px;
+	margin-top: 10px;
+	background-color: #fec;
+}
+
+#stageContainer{
+	width: 660px;
+	height: 500px;
+	position: relative;
+}
+
+#stage_bgImg{
+	background-color: #fff;
+}
+
+.stage{
+	width: 640px;
+	height: 480px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+#playButton{
+	width: 640px;
+	height: 480px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background-color: rgba(0,0,0,0.75);
+	background-image: url("../res/icons/play.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	cursor: pointer
+}
+
+#infoBar{
+	height: 30px;
+	line-height: 30px;
+	width: 660px;
+	padding: 0 10px;
+}
+
+#leftInfoText{
+	float: left;
+}
+
+#rightInfoText{
+	float: right;
+	text-align: right;
+}

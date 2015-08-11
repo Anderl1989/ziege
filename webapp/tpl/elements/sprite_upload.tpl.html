@@ -1,0 +1,144 @@
+{#literal}
+<style type="text/css">
+	#spriteUploadBg{
+		position: fixed;
+		z-index: 10000;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0,0,0,0.5);
+		display: none;
+		width: 100%;
+		height: 100%;
+	}
+	#spriteUploadBoxPositioner{
+		width: 100%;
+		height: 100%;
+		display: table-cell;
+		vertical-align: middle;
+	}
+	#spriteUploadBox{
+		width: 780px;
+		margin: 0 auto;
+	}
+	
+	#spriteUploadBox input,
+	#spriteUploadBox select{
+		width: 100%;
+	}
+	
+	#spriteUploadContent{
+		padding: 10px;
+	}
+	
+	#btnSpriteAsBox,
+	#btnSpriteAsEntity,
+	#btnSpriteAsBackground{
+		width: 260px;
+		height: 40px;
+		line-height: 40px;
+		display: inline-block;
+		padding: 0 10px;
+		box-sizing: border-box;
+		text-align: center;
+		background-color: #9AB;
+		color: #fff;
+	}
+	
+	#btnSpriteAsBox.active,
+	#btnSpriteAsEntity.active,
+	#btnSpriteAsBackground.active{
+		background-color: #FEC;
+		color: #000;
+	}
+	
+	#btnSpriteAsBox.disabled,
+	#btnSpriteAsEntity.disabled,
+	#btnSpriteAsBackground.disabled{
+		color: #999;
+		text-decoration: none;
+		cursor: default;
+	}
+	
+	.spriteOvlBtn{
+		height: 40px;
+		line-height: 40px;
+		padding: 0 10px;
+		margin: 10px 0 0;
+		background-color: #900;
+		color: #FFF;
+	}
+	
+	#btnSaveSprite{
+		background-color: #090;
+	}
+	
+	#spriteUploadContent label{
+		padding: 10px 0 5px;
+		display: inline-block;
+	}
+	
+	#rawPreview,
+	#spritePreview{
+		height: 64px;
+		background-color: #fff;
+		display: inline-block;
+	}
+	
+	#spritePreview{
+		width: 64px;
+		margin-left: 10px;
+	}
+	.uploadBackground #spritePreview{
+		display: none;
+	}
+	
+	#rawPreview{
+		width: 246px;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	.uploadBackground #rawPreview{
+		width: 320px;
+		height: 240px;
+		background-size: 100% 100%;
+	}
+</style>
+{#/literal}
+<DIV id="spriteUploadBg">
+	<div id="spriteUploadBoxPositioner">
+		<div id="spriteUploadBox" class="box">
+			<div class="boxHeader"></div>
+			<div id="btnSpriteAsBox" class="click active">{t("edit.spriteUpload.asBox")}</div><div id="btnSpriteAsEntity" class="click">{t("edit.spriteUpload.asEntity")}</div><div id="btnSpriteAsBackground" class="click">{t("edit.spriteUpload.asBackground")}</div>
+			<div id="spriteUploadContent">
+				<div id="rawPreview">
+				
+				</div><div id="spritePreview">
+				
+				</div>
+				<div id="entityOnly">
+					<label for=inputName">{t("edit.spriteUpload.name")}</label>
+					<input type="text" id="inputName"></input>
+					<label for=inputOption">{t("edit.spriteUpload.behavior")}</label>
+					<select id="inputOption">
+						<!--<option value="enemy">{t("edit.spriteUpload.enemy")}</option>
+						<option value="goal">{t("edit.spriteUpload.goal")}</option>
+						<option value="player">{t("edit.spriteUpload.player")}</option>
+						<option value="collectable">{t("edit.spriteUpload.collectable")}</option>-->
+					</select>
+					<label for=inputFrameCount">{t("edit.spriteUpload.sprites")}</label>
+					<input type="number" value="1" min="1" id="inputFrameCount"></input>
+				</div>
+				<div id="fpsView">
+					<label for=inputFPS">{t("edit.spriteUpload.fps")}</label>
+					<input type="number" value="4" min="1" max="60" id="inputFPS"></input>
+				</div>
+				
+				<div id="btnSaveSprite" class="spriteOvlBtn click">{t("edit.spriteUpload.save")}</div>
+				<div id="btnDiscardSprite" class="spriteOvlBtn click">{t("edit.spriteUpload.discard")}</div>
+				<div id="btnDiscardAllSprites" class="spriteOvlBtn click">{t("edit.spriteUpload.discardAll")}</div>
+			</div>
+		</div>
+	</div>
+</DIV>

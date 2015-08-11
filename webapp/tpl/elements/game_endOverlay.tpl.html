@@ -1,0 +1,6 @@
+<div id="gameOverTitle">{t("game.over")}</div>
+<div class="gameOverText">{$T.message}</div>
+<div class="gameOverText">{t("game.score")}{$T.score}</div>
+<div class="gameOverText">{t("game.time")}{$T.time}</div>
+<div id="gameOverRestart" class="click gameOverButton">{t("game.restart")}</div>
+{#if $T.showEnd}<div id="gameOverEnd" class="click gameOverButton">{t("game.end")}</div>{#/if}

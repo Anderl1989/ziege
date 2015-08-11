@@ -1,0 +1,48 @@
+{#include grid root=$T}
+
+<div class="subbox">
+	<div id="entityHeader" class="boxHeader">{t("edit.entity.header")}</div>
+	<div id="entity_container">
+	<div>
+		{#foreach $T.entities as entity}
+			<div class="entity click {#if "game.entity." + $T.entity$key == $T.drawEntity.id}active{#/if}" entityId="game.entity.{$T.entity$key}" behavior="{$T.entity.behavior}" style='min-height: {
+				(R.getImage("game.entity." + $T.entity$key).height < 64)? R.getImage("game.entity." + $T.entity$key).height + 14 : 78
+			}px;'>
+				<div class="entityImage" style='background-image: url({$T.entity.src || $T.entity.img.src}); width: {
+						(R.getImage("game.entity." + $T.entity$key).width < 64)? R.getImage("game.entity." + $T.entity$key).width : 64
+					}px; height: {
+						(R.getImage("game.entity." + $T.entity$key).height < 64)? R.getImage("game.entity." + $T.entity$key).height : 64
+					}px;'></div><div class="entityText">{$T.entity.name} 
+						<span class="entityTextBehavior">({PREDEFINED_BEHAVIORS[R.getImage("game.entity." + $T.entity$key).raw.behavior].name})</span>
+					</div>
+			</div>
+		{#/for}
+	</div>
+	
+	{#foreach $T.tilesets as ts}
+		<div class="tilesetBox">
+			<div class="tilesetBoxHeader click">{$T.ts.name}</div>
+			{#foreach $T.ts.entity as entity}
+				<div class="entity click {#if $T.ts$key + ".entity." + $T.entity$key == $T.drawEntity.id}active{#/if}" entityId="{$T.ts$key}.entity.{$T.entity$key}" behavior="{$T.entity.behavior}" style='min-height: {
+					(R.getImage($T.ts$key + ".entity." + $T.entity$key).height < 64)? R.getImage($T.ts$key + ".entity." + $T.entity$key).height + 14 : 78
+				}px;'>
+					<div class="entityImage" style='background-image: url({$T.entity.src || $T.entity.img.src}); width: {
+							(R.getImage($T.ts$key + ".entity." + $T.entity$key).width < 64)? R.getImage($T.ts$key + ".entity." + $T.entity$key).width : 64
+						}px; height: {
+							(R.getImage($T.ts$key + ".entity." + $T.entity$key).height < 64)? R.getImage($T.ts$key + ".entity." + $T.entity$key).height : 64
+						}px;'></div><div class="entityText">{$T.entity.name} 
+							<span class="entityTextBehavior">({PREDEFINED_BEHAVIORS[R.getImage($T.ts$key + ".entity." + $T.entity$key).raw.behavior].name})</span>
+						</div>
+				</div>
+			{#/for}
+			<div class="tilesetBoxEnd"/>
+		</div>
+	{#/for}
+	
+	
+	</div>
+	<div id="tileset_footer">
+		<span class="tileset_footer_button click" id="addTilesetElement"></span>
+		<span class="tileset_footer_button click" id="removeTilesetElement"></span>
+	</div>
+</div>

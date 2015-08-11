@@ -1,0 +1,9 @@
+Gewünschte Verhalten:
+ - Trampolin
+ - Herabstürzende Teile wenn man lang drauf bleibt
+# - Lava/Stacheln
+ - Wasserfall hinauf schwimmen (problem: was ist vorne)
+ - Leitern (problem: was ist vorne)
+ - Blöcke die von Decke fallen
+ - Zerstörbare Blöcke
+ - Teleporter

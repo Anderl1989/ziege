@@ -1,0 +1,297 @@
+_behavior:{
+	name: "[behavior name]",
+	group: "[group]",
+	patterns: [
+		{
+			name: "[pattern name]",
+			events: [
+				{
+					type: "",
+					param1: "",
+					param2: "",
+					param3: "",
+				},
+			],
+			reactions: [
+				{
+					type: "",
+					param1: "",
+					param2: "",
+					param3: "",
+				},
+			],
+		},
+	],
+	rigid: false,
+	colliding: true,
+	attachCamera: false,
+},
+
+
+
+Events in detail:
+		{
+			type: "always",
+		},
+		{
+			type: "attribute",
+			param1: "[attribute name]",
+			param2: "g l e ge le ne", // > < = >= <= !=
+			param3: "[value]",
+		},
+		{
+			type: "global",
+			param1: "[global name]",
+			param2: "g l e ge le", // > < = >= <=
+			param3: "[value]",
+		},
+		{
+			type: "keyPressed",
+			param1: "[keycode]",
+		},
+		{
+			type: "keyDown",
+			param1: "[keycode]",
+		},
+		{
+			type: "keyUp",
+			param1: "[keycode]",
+		},
+		{
+			type: "animation",
+			param1: "[animation id]",
+		},
+		{
+			type: "animationRunning",
+		},
+		{
+			type: "animationStopped",
+		},
+		{
+			type: "frame",
+			param1: "[framenumber]",
+		},
+		{
+			type: "init",
+		},
+		{
+			type: "abyss",
+			param1: "bottomLeft bottomRight bottom upLeft upRight up rightUp rightDown right leftUp leftDown left vertical horizontal any",
+		},
+		{
+			type: "noCollision",
+			param1: "box",
+		},
+		{
+			type: "noCollision",
+			param1: "anyEntity",
+		},
+		{
+			type: "noCollision",
+			param1: "entity",
+			param2: "[group]",
+		},
+		{
+			type: "collision",
+			param1: "left right side top bottom vertical anywhere",
+			param2: "box",
+		},
+		{
+			type: "collision",
+			param1: "left right side top bottom vertical anywhere",
+			param2: "anyEntity",
+		},
+		{
+			type: "collision",
+			param1: "left right side top bottom vertical anywhere",
+			param2: "entity",
+			param3: "[group]",
+		},
+		{
+			type: "outOfScreen",
+			param1: "left right side top bottom vertical anywhere",
+		},
+		{
+			type: "approach",
+			param1: "[group]",
+			param2: "distLess distGreater xLess xGreater yLess yGreater",
+			param3: "[distance]",
+		},
+		{
+			type: "group",
+			param1: "[group]",
+		},
+		{
+			type: "position",
+			param1: "x y",
+			param2: "g l e ge le ne", // > < = >= <= !=
+			param3: "[value]",
+		},
+		{
+			type: "velocity",
+			param1: "x y total",
+			param2: "g l e ge le ne", // > < = >= <= !=
+			param3: "[value]",
+		},
+		{
+			type: "acceleration",
+			param1: "x y total",
+			param2: "g l e ge le ne", // > < = >= <= !=
+			param3: "[value]",
+		},
+		{
+			type: "mirrored",
+			param1: "x y",
+			param2: "true false",
+		},
+		{
+			type: "score",
+			param1: "g l e ge le ne", // > < = >= <= !=
+			param2: "[value]",
+		},
+	
+	
+	
+Reactions in detail:
+// animation changed, see below
+//		{
+//			type: "animation",
+//			param1: "[animation id]",
+//		},
+		{
+			type: "random",
+			param1: "[attribute]",
+			param2: "[min]",
+			param3: "[max]",
+		},
+// frame changed, see below
+//		{
+//			type: "frame",
+//			param1: "[frame id]",
+//		},
+		{
+			type: "stopAnimation",
+		},
+		{
+			type: "startAnimation",
+		},
+		{
+			type: "disappear",
+		},
+		{
+			type: "endGame",
+			param1: "[message]",
+		},
+{ //NYI
+	type: "sound",
+	param1: "[sound id]",
+},
+		{
+			type: "group",
+			param1: "[group]",
+		},
+		{
+			type: "save",
+		},
+		{
+			type: "restore",
+		},
+		{
+			type: "mirror",
+			param1: "x y",
+			param2: "true false toggle",
+		},
+		{
+			type: "attribute global",
+			param1: "[attribute/global name]",
+			param2: "add subtract set",
+			param3: "custom",
+			param4: "[value]",
+		},
+		{
+			type: "attribute global",
+			param1: "[attribute/global name]",
+			param2: "add subtract set",
+			param3: "value",
+			param4: "velocityX velocityY accelerationX accelerationY positionX positionY score millis time animation frame",
+		},
+		{
+			type: "attribute global",
+			param1: "[attribute/global name]",
+			param2: "add subtract set",
+			param3: "attribute",
+			param4: "[attribute name]",
+		},
+		{
+			type: "attribute global",
+			param1: "[attribute/global name]",
+			param2: "add subtract set",
+			param3: "global",
+			param4: "[global name]",
+		},
+		{	//after spawn(init), entity collision or approach
+			type: "attribute global",
+			param1: "[attribute/global name]",
+			param2: "add subtract set",
+			param3: "opponentValue",
+			param4: "velocityX velocityY accelerationX accelerationY positionX positionY animation frame",
+		},
+		{	//after spawn(init), entity collision or approach
+			type: "attribute global",
+			param1: "[attribute/global name]",
+			param2: "add subtract set",
+			param3: "opponentAttribute",
+			param4: "[attribute name]",
+		},
+		{
+			type: "velocityX velocityY accelerationX accelerationY positionX positionY score animation frame",
+			param1: "add subtract set",
+			param2: "custom",
+			param3: "[value]",
+		},
+		{
+			type: "velocityX velocityY accelerationX accelerationY positionX positionY score animation frame",
+			param1: "add subtract set",
+			param2: "value",
+			param3: "velocityX velocityY accelerationX accelerationY positionX positionY score millis time animation frame",
+		},
+		{
+			type: "velocityX velocityY accelerationX accelerationY positionX positionY score animation frame",
+			param1: "add subtract set",
+			param2: "attribute",
+			param3: "[attribute name]",
+		},
+		{
+			type: "velocityX velocityY accelerationX accelerationY positionX positionY score animation frame",
+			param1: "add subtract set",
+			param2: "global",
+			param3: "[global name]",
+		},
+		{	//after spawn(init), entity collision or approach
+			type: "velocityX velocityY accelerationX accelerationY positionX positionY score animation frame",
+			param1: "add subtract set",
+			param2: "opponentValue",
+			param3: "velocityX velocityY accelerationX accelerationY positionX positionY animation frame",
+		},
+		{	//after spawn(init), entity collision or approach
+			type: "velocityX velocityY accelerationX accelerationY positionX positionY score animation frame",
+			param1: "add subtract set",
+			param2: "opponentAttribute",
+			param3: "[attribute name]",
+		},
+		{
+			type: "spawn",
+			param1: "[entity id]",
+		},
+		{
+			type: "colliding",
+			param1: "true false",
+		},
+		{
+			type: "rigid",
+			param1: "true false",
+		},
+		{
+			type: "attachCamera",
+			param1: "true false",
+		},

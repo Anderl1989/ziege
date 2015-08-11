@@ -1,0 +1,36 @@
+{#literal}
+<style type="text/css">
+	#tilesetExplorerContainer{
+		margin: 0 auto;
+		width: 280px;
+		background-color: #fff;
+		box-shadow: 2px 2px 0 0 #28678F;
+	}
+	#tilesetExplorerHeader{
+		height: 30px;
+		line-height: 30px;
+		background-color: #28678F;
+		text-align: center;
+		color: #fff;
+	}
+	.tilesetExplorerCloseOverlay{
+		width: 20px;
+		height: 20px;
+		display: inline-block;
+		float: right;
+	}
+	.tilesetExplorerEntry{
+		width: 100%;
+		height: 20px;
+		line-height: 20px;
+		padding: 0 10px;
+		border-bottom: 1px solid #fff;
+	}
+</style>
+{#/literal}
+<div id="tilesetExplorerContainer">
+	<div id="tilesetExplorerHeader">{t("addTile.header")}<span class="tilesetExplorerCloseOverlay click" id="closeOverlay">X</span></div>
+	{#foreach $T.tilesets as ts}
+		<div class="tilesetExplorerEntry click" gameId="{$T.ts._id}" tsName="{$T.ts.tilesetName}">{$T.ts.tilesetName}</div>
+	{#/for}
+</div>
