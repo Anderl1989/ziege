@@ -11,6 +11,9 @@ html, body{
 	margin: 0;
 	padding: 0;
 }
+[class^="variant_"]{
+	display: none;
+}
 :not(input){
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;

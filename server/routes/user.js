@@ -126,13 +126,13 @@ var user = new function(){
 					
 						console.log(JSON.stringify(newUser));
 					
-						mail({
+						/*mail({
 							from: "ZIEGE <noreply@game-editor.at>", // sender address
 							to: newUser.mail, // list of receivers
 							subject: "Willkommen bei ZIEGE", // Subject line
 							text: "Hallo " + newUser.name + ", dein Account bei ZIEGE (www.game-editor.at) wurde erfolgreich erstellt!", // plaintext body
 							html: "<b>Hallo " + newUser.name + ",</b><br>dein Account bei <a href=\"http://www.game-editor.at\">ZIEGE</a> wurde erfolgreich erstellt!", // html body
-						});
+						});*/
 					
 						req.session.regenerate(function(){
 							req.session.user = newUser;

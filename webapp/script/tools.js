@@ -50,6 +50,7 @@ var TOOLS = new function(){
 				console.error(err);
 			});
 		});
+		
 	};
 	
 	var ScriptLoader = new function(){
@@ -157,6 +158,15 @@ var TOOLS = new function(){
 			console.error(arguments);
 		});
 		
+	};
+	
+	this.showVariants = function(){
+		REST.getSetting("variant", function(variant){
+			$(".variant_"+variant).show();
+			$('[class^="variant_"]:not(.variant_'+variant+')').remove();
+		}, function(err){
+			console.error(err);
+		});
 	};
 	
 	var loadRatingContainerData = function(container, gameId, rateable){
