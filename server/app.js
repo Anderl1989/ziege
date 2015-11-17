@@ -20,6 +20,7 @@ var user = require('./routes/user').init(db, mongojs);
 var game = require('./routes/game').init(db, mongojs);
 var tileset = require('./routes/tileset').init(db, mongojs);
 var ratings = require('./routes/ratings').init(db, mongojs);
+var settings = require('./routes/settings').init(db, mongojs);
 
 /* APP INITIALIZATION */
 var app = express();
@@ -86,6 +87,9 @@ app.get('/rest/tileset/getPublicTileset', tileset.getPublicTileset);
 app.get('/rest/ratings/getGameRating', ratings.getGameRating);
 app.get('/rest/ratings/getRating', user.isValid, ratings.getRating);
 app.put('/rest/ratings/rateGame', user.isValid, ratings.rateGame);
+
+app.get('/rest/settings/get/:setting', settings.get);
+app.get('/rest/settings/set/:setting/:value', user.isAdmin, settings.set);
 
 /* TODO: remove reset method on release */
 /*app.use('/rest/reset', function(req, res){

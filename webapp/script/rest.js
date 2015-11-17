@@ -188,4 +188,8 @@ var REST = new function(){
 	this.shareTileset = function(gameId, tilesetName, onSuccess, onError){
 		call('/tileset/shareTileset', "POST", null, {gameId: gameId, tilesetName: tilesetName}, onSuccess, onError);
 	};
+	
+	this.getSetting = function(settingId, onSuccess, onError){
+		call('/settings/get/' + settingId, "GET", null, null, onSuccess, onError);
+	};
 };

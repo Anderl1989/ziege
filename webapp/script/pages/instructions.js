@@ -4,7 +4,7 @@ $(function(){
 		$("#container").setTemplateURL("tpl/instructions.tpl.html", {header: header});
 		$("#container").processTemplate();
 		
-		
+		TOOLS.showVariants();
 		
 	});
 });
