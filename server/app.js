@@ -26,7 +26,8 @@ var settings = require('./routes/settings').init(db, mongojs);
 var app = express();
 
 /* MIDDLEWARE */
-app.use(bodyParser()); //parses body arguments
+app.use(bodyParser.json({limit: "5mb"}));
+app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(cookieParser()); //required for session management
 app.use(session({secret: SESSION_SECRET})); //enables session management
 app.use(function(req, res, next){ //adds a simple logger
