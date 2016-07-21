@@ -1,7 +1,8 @@
 $(function(){
-	var loadGames = function(page){
+	var loadGames = function(page, orderBy){
 		page = page || 0;
-		REST.getPublicGames(page, function(publicGames){
+		orderBy = orderBy || 'rating';
+		REST.getPublicGames(page, orderBy, function(publicGames){
 				
 			console.log(publicGames);
 			$("#index_showroom").setTemplateURL("tpl/elements/gamesList.tpl.html");
@@ -30,13 +31,19 @@ $(function(){
 		$("#container").processTemplate();
 		
 		var page = 0;
+		var orderBy = 'rating';
 		
-		loadGames(page);
+		loadGames(page, orderBy);
+		
+		$("#orderBy").on("change",function(){
+			orderBy = $("#orderBy").val();
+			loadGames(page, orderBy);
+		});
 		
 		$("#index_showroom").on("click",".prev", function(){
 			if(!$(this).hasClass("disabled")){
 				page--;
-				loadGames(page);
+				loadGames(page, orderBy);
 				return true;
 			}
 			return false;
@@ -45,7 +52,7 @@ $(function(){
 		$("#index_showroom").on("click",".next", function(){
 			if(!$(this).hasClass("disabled")){
 				page++;
-				loadGames(page);
+				loadGames(page, orderBy);
 				return true;
 			}
 			return false;
@@ -54,7 +61,7 @@ $(function(){
 		$("#index_showroom").on("click",".page", function(){
 			if(!$(this).hasClass("disabled")){
 				page = $(this).attr("page")-0;
-				loadGames(page);
+				loadGames(page, orderBy);
 				return true;
 			}
 			return false;

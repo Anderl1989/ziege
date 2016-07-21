@@ -7,6 +7,7 @@ var game = new function(){
 	var mongojs;
 	
 	var DEFAULT_GAME_COUNT = 12;
+	var DEFAULT_GAME_ORDER = 'rating';
 	
 	var addGameInfo = function(author, gameName, onSuccess, onError){
 		db.gameInfo.save(
@@ -280,7 +281,7 @@ var game = new function(){
 		
 	};
 	
-	var getPublicGameInfo = function(gameCount, page, onSuccess, onError){
+	var getPublicGameInfo = function(gameCount, page, orderBy, onSuccess, onError){
 		db.gameInfo.count({removed: "false", isPublic: "true"}, function(err, amount){
 			if(err || typeof amount != "number"){
 				onError(err);
@@ -292,7 +293,27 @@ var game = new function(){
 					games: null,
 				};
 				
-				db.gameInfo.find({removed: "false", isPublic: "true"}).sort({ 'rating.valid': -1, 'rating.total': -1 }).limit(gameCount).skip(gameCount*page, function(err, gameInfos) {
+				var sort = {};
+				switch(orderBy) {
+					case 'author':
+						sort = { 'author': 1, 'name': 1 };
+						break;
+					case 'name':
+						sort = { 'name': 1 };
+						break;
+					case 'creationDate':
+						sort = { 'creationDate': -1 };
+						break;
+					case 'modifiedDate':
+						sort = { 'modifiedDate': -1 };
+						break;
+					case 'rating':
+					default:
+						sort = { 'rating.valid': -1, 'rating.total': -1 };
+						break;
+				}
+				
+				db.gameInfo.find({removed: "false", isPublic: "true"}).sort(sort).limit(gameCount).skip(gameCount*page, function(err, gameInfos) {
 					if(err || !gameInfos){
 						onError(err);
 					} else {
@@ -413,9 +434,10 @@ var game = new function(){
 	
 	this.getPublicGames = function(req, res){
 		var gameCount = req.query.count || DEFAULT_GAME_COUNT;
+		var orderBy = req.query.orderBy || DEFAULT_GAME_ORDER;
 		var page = req.query.page || 0;
 		
-		getPublicGameInfo(gameCount, page, function(gameInfos){
+		getPublicGameInfo(gameCount, page, orderBy, function(gameInfos){
 			res.send(200, gameInfos);
 		}, function(err){
 			log(err);

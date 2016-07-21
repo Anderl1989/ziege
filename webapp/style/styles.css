@@ -344,3 +344,17 @@ img{
 	display: table-cell;
 	vertical-align: middle;
 }
+
+#orderBy{
+	background-color: transparent;
+	border: 0px none;
+	color: #fff;
+	cursor: pointer;
+	font-size: 16px;
+	outline: 0px none;
+	font-weight: bold;
+}
+
+#orderBy option{
+	color: #000;
+}

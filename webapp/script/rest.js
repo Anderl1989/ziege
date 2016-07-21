@@ -93,8 +93,8 @@ var REST = new function(){
 		call('/game/getOwnGames', "GET", {isPublic: isPublic, page: page}, null, onSuccess, onError);
 	};
 	
-	this.getPublicGames = function(page, onSuccess, onError){
-		call('/game/getPublicGames', "GET", {page: page}, null, onSuccess, onError);
+	this.getPublicGames = function(page, orderBy, onSuccess, onError){
+		call('/game/getPublicGames', "GET", {page: page, orderBy: orderBy}, null, onSuccess, onError);
 	};
 	
 	this.getGameInfoWithTileset = function(onSuccess, onError){
