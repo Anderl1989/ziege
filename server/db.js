@@ -1,6 +1,17 @@
-var databaseURI = "mongodb://admin@localhost:27017/ziege";
-var collections = ["users", "gameInfo", "gameEntityLayer", "gameBoxLayer", "gameOptions", "tilesetInfo", "tilesetEntity", "tilesetBox", "tilesetBackgroundImage", "ratings", "settings"];
-var mongojs = require("mongojs");
-var db = mongojs.connect(databaseURI, collections);
+import { MongoClient } from 'mongodb';
 
-module.exports = {db: db, mongojs: mongojs};
+export async function connectDB(mongoUrl, dbName) {
+  const client = new MongoClient(mongoUrl);
+  try {
+  	await client.connect();
+  	console.log('Connected successfully to database');
+  } catch (err) {
+  	console.log('Error connecting to database');
+  	process.exit(0);
+  }
+  const db = client.db(dbName);
+
+  return db;
+}
+
+export default connectDB;

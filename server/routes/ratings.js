@@ -1,143 +1,103 @@
-var log = require('../log');
+import express from 'express';
+import { ObjectId } from 'mongodb';
 
-var ratings = new function(){
+import { isValid } from './user.js';
 
-	var db;
-	var mongojs;
+const router = express.Router();
 
-	var rateGame = function(gameId, userName, rating, onSuccess, onError){
-		db.ratings.update(
-			{
-				userName: userName,
-				gameId: gameId,
-			},
-			{ 
-				$set: { rating: rating, },
-			},
-			{upsert: true, multi: false},
-			function(err, saved) {
-				if(err || !saved ){
-					onError(err);
-				} else {
-					getGameRating(gameId, true, onSuccess, onError);
-				}
-			}
-		);
-	};
-	
-	var getRating = function(gameId, userName, onSuccess, onError){
-		db.ratings.findOne({userName: userName, gameId: gameId}, function(err, rating) {
-			if(err || !rating){
-				onSuccess({rating: 0});
+let db;
+
+export function init(database) {
+	db = database;
+}
+
+async function getGameRating(gameId, update) {
+	const ratings = await db.collection('ratings').find({ gameId: gameId.toString() }).toArray();
+	const rating = ratings.reduce((acc, r) => {
+		acc.votes += 1;
+		acc.sum += r.rating;
+		return acc;
+	}, { votes: 0, sum: 0, total: 0, valid: false });
+	if (rating.votes > 0) rating.total = rating.sum / rating.votes;
+	if (rating.votes > 1) rating.valid = true;
+	if (update) {
+		await db.collection('gameInfo').updateOne({ _id: new ObjectId(gameId.toString()) }, { $set: { rating } });
+	}
+
+	return rating;
+}
+
+export async function updateGameRatings() {
+	try {
+		const games = await db.collection('gameInfo').find({}).toArray();
+		const promises = games.map((game) => getGameRating(game._id, true));
+		await Promise.all(promises);
+		console.log('Game ratings updated.');
+	} catch (err) {
+		console.log('Error updating game ratings', err);
+	}
+}
+
+router.get('/getGameRating', async (req, res) => {
+	if (!req.query.gameId) {
+		res.status(400).send({ error: 'No game id specified!' });
+	} else {
+		try {
+			const rating = await getGameRating(req.query.gameId, false);
+			res.status(200).send(rating);
+		} catch (err) {
+			console.log('ERR', err);
+			res.status(404).send({ message: 'No rating for this game found!' });
+		}
+	}
+});
+
+router.get('/getRating', isValid, async (req, res) => {
+	if (!req.query.gameId) {
+		res.status(400).send({ error: 'No game id specified!' });
+	} else {
+		try {
+			const rating = await db.collection('ratings').findOne({ gameId: req.query.gameId.toString(), userName: req.session.user.name });
+			if (rating) {
+				res.send(rating);
 			} else {
-				onSuccess(rating);
+				res.send({ rating: 0 });
 			}
-		});
-	};
-	
-	var getGameRating = function(gameId, update, onSuccess, onError){
-		db.ratings.find({gameId: gameId}, function(err, ratings) {
-			if(err || !ratings){
-				onError(err);
-			} else {
-				var rating = {
-					votes: 0,
-					sum: 0,
-				};
-				
-				for(var i in ratings){
-					
-					rating.votes++;
-					rating.sum += ratings[i].rating;
-				}
-				
-				rating.total = (rating.votes > 0)? rating.sum/rating.votes : 0;
-				rating.valid = (rating.votes > 1);
-				
-				if(update){
-					db.gameInfo.update(
-						{
-							_id: mongojs.ObjectId(gameId),
-						},
-						{ 
-							$set: { rating: rating, }
-						},
-						{upsert: false, multi: false},
-						function(err, saved) {
-							if(err || !saved ){
-								console.log("updating game info after rating error:", err);
-							} else {
-								console.log("updating game info after rating success");
-							}
-						}
-					);
-				}
-				
-				onSuccess(rating);
-			}
-		});
-	};
-	
-	this.init = function(database, mongo){
-		db = database;
-		mongojs = mongo;
-		
-		//update/get all game ratings on init
-		db.gameInfo.find(function(err, gameInfos) {
-			if(!err && gameInfos){
-				for(var i in gameInfos){
-					getGameRating(gameInfos[i]._id+"", true, function(){}, function(){});
-				}
-			}
-		});
-		
-		
-		return this;
-	};
-	
-	this.rateGame = function(req, res){
-		if(!req.body.gameId){
-			res.send(400, { error: 'No game id specified!' });
-		} else if(!req.body.rating){
-			res.send(400, { error: 'No rating specified!' });
-		} else if(req.body.rating < 1 || req.body.rating > 5){
-			res.send(400, { error: 'Rating invalid!' });
-		} else {
-			rateGame(req.body.gameId, req.session.user.name, ~~req.body.rating, function(rating){
-				res.send(200, rating);
-			}, function(err){
-				log(err);
-				res.send(500, { message: 'An unknown error occurred!' });
-			});
+		} catch (err) {
+			console.log('ERR', err);
+			res.status(500).send({ message: 'An unknown error occurred!' });
 		}
-	};
-	
-	this.getRating = function(req, res){
-		if(!req.query.gameId){
-			res.send(400, { error: 'No game id specified!' });
-		} else {
-			getRating(req.query.gameId, req.session.user.name, function(rating){
-				res.send(200, rating);
-			}, function(err){
-				log(err);
-				res.send(404, { message: 'No rating from this user for this game found!' });
-			});
-		}
-	};
-	
-	
-	this.getGameRating = function(req, res){
-		if(!req.query.gameId){
-			res.send(400, { error: 'No game id specified!' });
-		} else {
-			getGameRating(req.query.gameId, false, function(rating){
-				res.send(200, rating);
-			}, function(err){
-				log(err);
-				res.send(404, { message: 'No rating from this user for this game found!' });
-			});
-		}
-	};
-};
+	}
+});
 
-module.exports = ratings;
+router.put('/rateGame', isValid, async (req, res) => {
+	if (!req.body.gameId) {
+		res.status(400).send({ error: 'No game id specified!' });
+	} else if (!req.body.rating) {
+		res.status(400).send({ error: 'No rating specified!' });
+	} else if (req.body.rating < 1 || req.body.rating > 5) {
+		res.status(400).send({ error: 'Rating invalid!' });
+	} else {
+		try {
+			const query = {
+				userName: req.session.user.name,
+				gameId: req.body.gameId,
+			};
+			const update = {
+				$set: {
+					rating: Math.floor(req.body.rating),
+				},
+			};
+			await db.collection('ratings').updateOne(query, update, { upsert: true });
+
+			const rating = await getGameRating(req.body.gameId, true);
+			res.status(200).send(rating);
+
+		} catch (err) {
+			console.log('ERR', err);
+			res.status(500).send({ message: 'An unknown error occurred!' });
+		}
+	}
+});
+
+export default router;

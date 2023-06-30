@@ -1,74 +1,48 @@
-var log = require('../log');
+import express from 'express';
+import { ObjectId } from 'mongodb';
 
-var ratings = new function(){
+import { isAdmin } from './user.js';
 
-	var db;
-	var mongojs;
+const router = express.Router();
 
-	var set = function(settingId, value, onSuccess, onError){
-		db.settings.update(
-			{
-				settingId: settingId,
-			},
-			{ 
-				$set: { value: value, },
-			},
-			{upsert: true, multi: false},
-			function(err, saved) {
-				if(err || !saved ){
-					onError(err);
-				} else {
-					onSuccess();
-				}
-			}
-		);
-	};
-	
-	var get = function(settingId, onSuccess, onError){
-		db.settings.findOne({settingId: settingId}, function(err, setting) {
-			if(err || !setting){
-				onError("Setting not found");
+let db;
+
+export function init(database) {
+	db = database;
+}
+
+router.get('/get/:setting', async (req, res) => {
+	if (!req.params.setting) {
+		res.status(400).send({ error: 'No setting id specified!' });
+	} else {
+		try {
+			const setting = await db.collection('settings').findOne({ settingId: req.params.setting });
+			if (setting) {
+				res.status(200).send(setting.value);
 			} else {
-				onSuccess(setting.value);
+				res.status(404).send(null);
 			}
-		});
-	};
-	
-	this.init = function(database, mongo){
-		db = database;
-		mongojs = mongo;
-		
-		return this;
-	};
-	
-	this.set = function(req, res){
-		if(!req.params.setting){
-			res.send(400, { error: 'No setting id specified!' });
-		} else if(!req.params.value){
-			res.send(400, { error: 'No value specified!' });
-		} else {
-			set(req.params.setting, req.params.value, function(){
-				res.send(200);
-			}, function(err){
-				log(err);
-				res.send(500, { message: 'An unknown error occurred!' });
-			});
+		} catch (err) {
+			console.log('ERR', err);
+			res.status(500).send({ message: 'An unknown error occurred!' });
 		}
-	};
-	
-	this.get = function(req, res){
-		if(!req.params.setting){
-			res.send(400, { error: 'No setting id specified!' });
-		} else {
-			get(req.params.setting, function(value){
-				res.send(200, value);
-			}, function(err){
-				log(err);
-				res.send(404, null);
-			});
-		}
-	};
-	
-};
+	}
+});
 
-module.exports = ratings;
+router.get('/set/:setting/:value', isAdmin, async (req, res) => {
+	if (!req.params.setting) {
+		res.status(400).send({ error: 'No setting id specified!' });
+	} else if (!req.params.value) {
+		res.status(400).send({ error: 'No value specified!' });
+	} else {
+		try {
+			await db.collection('settings').updateOne({ settingId: req.params.setting }, { $set: { value: req.params.value } }, { upsert: true });
+			res.send();
+		} catch (err) {
+			console.log('ERR', err);
+			res.status(500).send({ message: 'An unknown error occurred!' });
+		}
+	}
+});
+
+export default router;

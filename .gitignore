@@ -3,3 +3,4 @@ webapp/userContent/
 server/db_kinderuni_Server.bat
 server/dbkinderuni/
 server/node_modules/
+server/.env
